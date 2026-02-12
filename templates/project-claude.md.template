@@ -1,0 +1,19 @@
+# [Project Name]
+
+> This project follows Outmore Living global standards.
+> See `~/outmore-globals/CLAUDE.md` for the full brand system, stack defaults, and agent roster.
+
+## Overview
+[What this project does — one paragraph]
+
+## Supabase Tables
+[List key tables with their purpose and RLS strategy]
+
+## Key Routes
+[List the main routes/pages]
+
+## Integrations
+[Any project-specific APIs, webhooks, or services]
+
+## Notes
+[Anything unique to this project]

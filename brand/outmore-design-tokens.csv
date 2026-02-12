@@ -1,0 +1,76 @@
+category,token,name,value,hex,hsl,tailwind_class,usage
+color,brand-jet,Jet,#373534,#373534,30 3% 21%,bg-brand-jet text-brand-jet,Primary text and dark surfaces
+color,brand-linen,Linen,#f7f1e9,#f7f1e9,36 41% 94%,bg-brand-linen,Warm backgrounds (Beige theme)
+color,brand-hot-embers,Hot Embers,#F25431,#F25431,11 88% 57%,bg-brand-hot-embers,Accent CTAs and highlights
+color,brand-mist,Mist,#efefed,#efefed,0 0% 94%,bg-brand-mist,Flat surface backgrounds
+color,theme-light,Light,#fcf9f5,#fcf9f5,40 33% 98%,data-theme="light",Default theme background
+color,theme-beige,Beige,#f7f1e9,#f7f1e9,36 41% 94%,data-theme="beige",Warm linen theme background
+color,theme-white,White,#ffffff,#ffffff,0 0% 100%,data-theme="white",Pure white theme background
+color,theme-dark,Dark,#373534,#373534,30 3% 21%,data-theme="dark",Dark theme background
+color,background,Background,var(--color-background),,varies by theme,bg-background,Page background
+color,foreground,Foreground,var(--color-foreground),,varies by theme,text-foreground,Primary text
+color,primary,Primary,var(--color-brand-hot-embers),,11 88% 57%,bg-primary,Primary actions
+color,primary-foreground,Primary FG,#ffffff,#ffffff,0 0% 100%,text-primary-foreground,Text on primary
+color,muted,Muted,,,varies by theme,bg-muted,Subtle backgrounds
+color,muted-foreground,Muted FG,,,varies by theme,text-muted-foreground,Secondary text
+color,border,Border,,,varies by theme,border-border,Borders and dividers
+color,ring,Ring,var(--color-brand-hot-embers),,11 88% 57%,ring-ring,Focus rings
+gradient,heated-glow,Heated Glow,linear-gradient(135deg #F25431 0% #FF8A5C 50% #FFB347 100%),,,bg-heated-glow,Warm gradient backgrounds
+gradient,heated-radial,Heated Radial,radial-gradient(circle #F25431 0% #FF8A5C 40% transparent 70%),,,heated-radial,Spotlight warmth effect
+font,font-display,Display,Poppins,,,font-display,Headlines and hero text
+font,font-body,Body,DM Sans,,,font-body,Body copy and UI text
+font,font-accent,Accent,Cormorant Garamond,,,font-accent,Editorial and decorative text
+typography,text-xs,Extra Small,0.75rem,12px,,text-xs,Captions and metadata
+typography,text-sm,Small,0.875rem,14px,,text-sm,Labels and secondary text
+typography,text-base,Base,1rem,16px,,text-base,Body copy
+typography,text-lg,Large,1.125rem,18px,,text-lg,Lead paragraphs
+typography,text-xl,XL,1.25rem,20px,,text-xl,Subheadings
+typography,text-2xl,2XL,1.5rem,24px,,text-2xl,Section headers
+typography,text-3xl,3XL,1.875rem,30px,,text-3xl,Page titles
+typography,text-4xl,4XL,2.25rem,36px,,text-4xl,Hero headlines
+typography,text-5xl,5XL,3rem,48px,,text-5xl,Display headlines
+typography,text-6xl,6XL,3.75rem,60px,,text-6xl,Large display
+spacing,space-1,Space 1,0.25rem,4px,,p-1 m-1 gap-1,Tight gaps
+spacing,space-2,Space 2,0.5rem,8px,,p-2 m-2 gap-2,Element gaps
+spacing,space-3,Space 3,0.75rem,12px,,p-3 m-3 gap-3,Small padding
+spacing,space-4,Space 4,1rem,16px,,p-4 m-4 gap-4,Base unit
+spacing,space-5,Space 5,1.25rem,20px,,p-5 m-5 gap-5,Medium padding
+spacing,space-6,Space 6,1.5rem,24px,,p-6 m-6 gap-6,Section gaps
+spacing,space-8,Space 8,2rem,32px,,p-8 m-8 gap-8,Large padding
+spacing,space-10,Space 10,2.5rem,40px,,p-10 m-10 gap-10,Section separation
+spacing,space-12,Space 12,3rem,48px,,p-12 m-12 gap-12,Major sections
+spacing,space-16,Space 16,4rem,64px,,p-16 m-16 gap-16,Page sections
+spacing,space-20,Space 20,5rem,80px,,p-20 m-20 gap-20,Hero spacing
+spacing,space-24,Space 24,6rem,96px,,p-24 m-24 gap-24,Generous breathing room
+radius,radius-sm,Small,0.25rem,4px,,rounded-sm,Tight rounding
+radius,radius-md,Medium,0.5rem,8px,,rounded-md,Default rounding
+radius,radius-lg,Large,0.75rem,12px,,rounded-lg,Card rounding
+radius,radius-xl,XL,1rem,16px,,rounded-xl,Large card rounding
+radius,radius-2xl,2XL,1.5rem,24px,,rounded-2xl,Modal rounding
+radius,radius-pill,Pill,9999px,,,rounded-pill rounded-full,Buttons pills and avatars
+shadow,shadow-sm,Small,0 1px 2px 0 rgb(0 0 0 / 0.05),,,shadow-sm,Subtle lift
+shadow,shadow,Default,0 1px 3px 0 rgb(0 0 0 / 0.1),,,shadow,Default elevation
+shadow,shadow-md,Medium,0 4px 6px -1px rgb(0 0 0 / 0.1),,,shadow-md,Cards and elevated surfaces
+shadow,shadow-lg,Large,0 10px 15px -3px rgb(0 0 0 / 0.1),,,shadow-lg,Dropdowns and modals
+shadow,shadow-xl,XL,0 20px 25px -5px rgb(0 0 0 / 0.1),,,shadow-xl,Large overlays
+shadow,shadow-heated,Heated,0 0 20px hsl(11 88% 57% / 0.4),,,shadow-heated,Heated glow effect
+duration,duration-75,Fast,75ms,,,duration-75,Micro-interactions
+duration,duration-100,Quick,100ms,,,duration-100,Fast feedback
+duration,duration-150,Normal,150ms,,,duration-150,Default transitions
+duration,duration-200,Standard,200ms,,,duration-200,Standard animations
+duration,duration-300,Moderate,300ms,,,duration-300,Moderate animations
+duration,duration-500,Slow,500ms,,,duration-500,Slow deliberate motion
+easing,ease-out,Ease Out,cubic-bezier(0 0 0.2 1),,,ease-out,Elements entering
+easing,ease-in,Ease In,cubic-bezier(0.4 0 1 1),,,ease-in,Elements exiting
+easing,ease-in-out,Ease In Out,cubic-bezier(0.4 0 0.2 1),,,ease-in-out,Continuous motion
+easing,ease-spring,Spring,cubic-bezier(0.34 1.56 0.64 1),,,ease-spring,Playful bounce
+breakpoint,sm,Small,640px,,,,Landscape phones
+breakpoint,md,Medium,768px,,,,Tablets
+breakpoint,lg,Large,1024px,,,,Laptops
+breakpoint,xl,XL,1280px,,,,Desktops
+breakpoint,2xl,2XL,1536px,,,,Large displays
+surface,flat,Flat,surface-flat (Mist),none,none,surface-flat,Inline elements minimal UI
+surface,ghost,Ghost,transparent hover:muted/50,none,none,surface-ghost,Hover reveals interaction
+surface,outline,Outline,transparent,1px solid border,none,surface-outline,Secondary actions
+surface,raised,Raised,surface-raised,1px solid border,none,surface-raised,Cards and containers
+surface,elevated,Elevated,surface-overlay,none,shadow-md,surface-elevated,Dropdowns and modals

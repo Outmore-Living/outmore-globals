@@ -1,0 +1,412 @@
+/**
+ * Outmore Living - CSS Custom Properties
+ *
+ * This file defines all design tokens as CSS variables.
+ * Import this file before Tailwind CSS in your project.
+ *
+ * Usage:
+ *   @import './outmore-variables.css';
+ *   @tailwind base;
+ *   @tailwind components;
+ *   @tailwind utilities;
+ *
+ * Themes:
+ *   - Light (default): data-theme="light" - warm off-white #fcf9f5
+ *   - Beige: data-theme="beige" - warm linen #f7f1e9
+ *   - White: data-theme="white" - pure white #ffffff
+ *   - Dark: data-theme="dark" - jet #373534
+ */
+
+/* ============================================
+   FONT IMPORTS
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+/* ============================================
+   ROOT VARIABLES - BRAND CONSTANTS
+   ============================================ */
+
+:root {
+  /* ----------------------------------------
+     Brand Primaries (Raw Values)
+     ---------------------------------------- */
+  --color-brand-jet: 30 3% 21%;           /* #373534 */
+  --color-brand-linen: 36 41% 94%;        /* #f7f1e9 */
+  --color-brand-hot-embers: 11 88% 57%;   /* #F25431 */
+  --color-brand-mist: 0 0% 94%;           /* #efefed */
+
+  /* ----------------------------------------
+     Heated Glow Gradients
+     ---------------------------------------- */
+  --gradient-heated-glow: linear-gradient(135deg, #F25431 0%, #FF8A5C 50%, #FFB347 100%);
+  --gradient-heated-radial: radial-gradient(circle, #F25431 0%, #FF8A5C 40%, transparent 70%);
+
+  /* ----------------------------------------
+     Typography
+     ---------------------------------------- */
+  --font-display: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
+
+  /* ----------------------------------------
+     Border Radius
+     ---------------------------------------- */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+  --radius-2xl: calc(var(--radius) + 16px);
+  --radius-pill: 9999px;
+
+  /* ----------------------------------------
+     Shadows
+     ---------------------------------------- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ----------------------------------------
+     Animation
+     ---------------------------------------- */
+  --duration-fast: 75ms;
+  --duration-normal: 150ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   LIGHT THEME (Default) - Warm off-white
+   ============================================ */
+
+:root,
+[data-theme="light"] {
+  --color-background: 40 33% 98%;         /* #fcf9f5 */
+  --color-foreground: var(--color-brand-jet);
+
+  --color-primary: var(--color-brand-hot-embers);
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-secondary: 30 5% 35%;
+  --color-secondary-foreground: 0 0% 100%;
+
+  --color-muted: 30 10% 90%;
+  --color-muted-foreground: 30 3% 45%;
+
+  --color-accent: var(--color-brand-hot-embers);
+  --color-accent-foreground: 0 0% 100%;
+
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  --color-border: 30 10% 88%;
+  --color-input: 30 10% 88%;
+  --color-ring: var(--color-brand-hot-embers);
+
+  /* Surface Hierarchy */
+  --color-surface-base: 40 33% 98%;
+  --color-surface-raised: 40 30% 99%;
+  --color-surface-overlay: 0 0% 100%;
+  --color-surface-flat: 0 0% 96%;         /* Mist */
+}
+
+/* ============================================
+   BEIGE THEME - Warm linen
+   ============================================ */
+
+[data-theme="beige"] {
+  --color-background: var(--color-brand-linen);  /* #f7f1e9 */
+  --color-foreground: var(--color-brand-jet);
+
+  --color-primary: var(--color-brand-hot-embers);
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-secondary: 30 5% 35%;
+  --color-secondary-foreground: 0 0% 100%;
+
+  --color-muted: 30 15% 85%;
+  --color-muted-foreground: 30 3% 40%;
+
+  --color-accent: var(--color-brand-hot-embers);
+  --color-accent-foreground: 0 0% 100%;
+
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  --color-border: 30 12% 82%;
+  --color-input: 30 12% 82%;
+  --color-ring: var(--color-brand-hot-embers);
+
+  /* Surface Hierarchy */
+  --color-surface-base: var(--color-brand-linen);
+  --color-surface-raised: 36 35% 97%;
+  --color-surface-overlay: 0 0% 100%;
+  --color-surface-flat: 36 20% 92%;
+}
+
+/* ============================================
+   WHITE THEME - Pure white
+   ============================================ */
+
+[data-theme="white"] {
+  --color-background: 0 0% 100%;          /* #ffffff */
+  --color-foreground: var(--color-brand-jet);
+
+  --color-primary: var(--color-brand-hot-embers);
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-secondary: 0 0% 35%;
+  --color-secondary-foreground: 0 0% 100%;
+
+  --color-muted: 0 0% 95%;
+  --color-muted-foreground: 0 0% 45%;
+
+  --color-accent: var(--color-brand-hot-embers);
+  --color-accent-foreground: 0 0% 100%;
+
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  --color-border: 0 0% 90%;
+  --color-input: 0 0% 90%;
+  --color-ring: var(--color-brand-hot-embers);
+
+  /* Surface Hierarchy */
+  --color-surface-base: 0 0% 100%;
+  --color-surface-raised: 0 0% 98%;
+  --color-surface-overlay: 0 0% 100%;
+  --color-surface-flat: 0 0% 96%;
+}
+
+/* ============================================
+   DARK THEME
+   ============================================ */
+
+[data-theme="dark"],
+.dark {
+  --color-background: var(--color-brand-jet);
+  --color-foreground: var(--color-brand-linen);
+
+  --color-primary: var(--color-brand-hot-embers);
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-secondary: 30 10% 70%;
+  --color-secondary-foreground: 30 3% 15%;
+
+  --color-muted: 30 3% 28%;
+  --color-muted-foreground: 30 10% 65%;
+
+  --color-accent: var(--color-brand-hot-embers);
+  --color-accent-foreground: 0 0% 100%;
+
+  --color-destructive: 0 72% 51%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  --color-border: 30 3% 25%;
+  --color-input: 30 3% 25%;
+  --color-ring: var(--color-brand-hot-embers);
+
+  /* Surface Hierarchy */
+  --color-surface-base: var(--color-brand-jet);
+  --color-surface-raised: 30 3% 24%;
+  --color-surface-overlay: 30 3% 26%;
+  --color-surface-flat: 30 3% 18%;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* {
+  border-color: hsl(var(--color-border));
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   TYPOGRAPHY DEFAULTS
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;  /* Thinner heading weight for elegance */
+  text-wrap: balance;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   FOCUS STYLES
+   ============================================ */
+
+:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px hsl(var(--color-background)),
+    0 0 0 4px hsl(var(--color-ring));
+}
+
+/* For elements that shouldn't show focus ring on click */
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   SCROLLBAR STYLING (Optional)
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-muted));
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-muted-foreground));
+}
+
+/* ============================================
+   SELECTION STYLING
+   ============================================ */
+
+::selection {
+  background: hsl(var(--color-primary) / 0.2);
+  color: hsl(var(--color-foreground));
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Surface variants */
+.surface-flat {
+  background: hsl(var(--color-surface-flat));
+  border: none;
+  box-shadow: none;
+}
+
+.surface-ghost {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: background-color var(--duration-normal) var(--ease-out);
+}
+
+.surface-ghost:hover {
+  background: hsl(var(--color-muted) / 0.5);
+}
+
+.surface-outline {
+  background: transparent;
+  border: 1px solid hsl(var(--color-border));
+  box-shadow: none;
+}
+
+.surface-raised {
+  background: hsl(var(--color-surface-raised));
+  border: 1px solid hsl(var(--color-border));
+  box-shadow: none;
+}
+
+.surface-elevated {
+  background: hsl(var(--color-surface-overlay));
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+/* Interactive effects */
+.hover-lift {
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px hsl(var(--color-brand-hot-embers) / 0.4);
+}
+
+.press-scale:active {
+  transform: scale(0.98);
+}
+
+/* Typography utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+/* Heated glow utilities */
+.heated-text {
+  background: var(--gradient-heated-glow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heated-glow {
+  box-shadow: 0 0 30px hsl(var(--color-brand-hot-embers) / 0.3),
+              0 0 60px hsl(var(--color-brand-hot-embers) / 0.2);
+}
+
+.bg-heated-glow {
+  background: var(--gradient-heated-glow);
+}

@@ -1,0 +1,25 @@
+@import '../styles/outmore-variables.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 33% 97%;
+    --foreground: 30 2% 21%;
+  }
+
+  .dark {
+    --background: 30 2% 21%;
+    --foreground: 30 33% 97%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}

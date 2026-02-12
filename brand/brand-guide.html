@@ -1,0 +1,3551 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outmore Living — Brand Identity System</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- html2pdf for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    /* ============================================
+       CSS CUSTOM PROPERTIES - THEMES
+       ============================================ */
+    :root {
+      /* Brand Primaries (constant across themes) */
+      --color-brand-jet: 30 3% 21%;
+      --color-brand-linen: 36 41% 94%;
+      --color-brand-hot-embers: 11 88% 57%;
+      --color-brand-mist: 0 0% 94%;
+
+      /* Typography - BIGGER sizes */
+      --font-display: 'Poppins', system-ui, sans-serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-accent: 'Cormorant Garamond', Georgia, serif;
+
+      /* Base font size increased */
+      --text-base: 1.0625rem;
+      --text-sm: 0.9375rem;
+      --text-xs: 0.8125rem;
+      --text-lg: 1.1875rem;
+      --text-xl: 1.375rem;
+
+      /* Border Radius */
+      --radius: 0.5rem;
+      --radius-sm: calc(var(--radius) - 4px);
+      --radius-md: var(--radius);
+      --radius-lg: calc(var(--radius) + 4px);
+      --radius-xl: calc(var(--radius) + 8px);
+      --radius-2xl: calc(var(--radius) + 16px);
+      --radius-pill: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+      /* Animation */
+      --duration-fast: 75ms;
+      --duration-normal: 150ms;
+      --duration-slow: 300ms;
+      --duration-slower: 500ms;
+      --ease-out: cubic-bezier(0, 0, 0.2, 1);
+      --ease-in: cubic-bezier(0.4, 0, 1, 1);
+      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      /* Heated Glow Gradient */
+      --gradient-heated-glow: linear-gradient(135deg, #F25431 0%, #FF8A5C 50%, #FFB347 100%);
+      --gradient-heated-radial: radial-gradient(circle, #F25431 0%, #FF8A5C 40%, transparent 70%);
+    }
+
+    /* LIGHT THEME (Default) - Warm off-white */
+    [data-theme="light"] {
+      --color-background: 40 33% 98%;
+      --color-foreground: var(--color-brand-jet);
+      --color-primary: var(--color-brand-hot-embers);
+      --color-primary-foreground: 0 0% 100%;
+      --color-muted: 30 10% 90%;
+      --color-muted-foreground: 30 3% 45%;
+      --color-border: 30 10% 88%;
+      --color-ring: var(--color-brand-hot-embers);
+      --color-surface-base: 40 33% 98%;
+      --color-surface-raised: 40 30% 99%;
+      --color-surface-overlay: 0 0% 100%;
+      --color-surface-flat: 0 0% 96%;
+      --theme-name: "Light";
+    }
+
+    /* BEIGE THEME - Warm linen */
+    [data-theme="beige"] {
+      --color-background: var(--color-brand-linen);
+      --color-foreground: var(--color-brand-jet);
+      --color-primary: var(--color-brand-hot-embers);
+      --color-primary-foreground: 0 0% 100%;
+      --color-muted: 30 15% 85%;
+      --color-muted-foreground: 30 3% 40%;
+      --color-border: 30 12% 82%;
+      --color-ring: var(--color-brand-hot-embers);
+      --color-surface-base: var(--color-brand-linen);
+      --color-surface-raised: 36 35% 97%;
+      --color-surface-overlay: 0 0% 100%;
+      --color-surface-flat: 36 20% 92%;
+      --theme-name: "Beige";
+    }
+
+    /* WHITE THEME - Pure white */
+    [data-theme="white"] {
+      --color-background: 0 0% 100%;
+      --color-foreground: var(--color-brand-jet);
+      --color-primary: var(--color-brand-hot-embers);
+      --color-primary-foreground: 0 0% 100%;
+      --color-muted: 0 0% 95%;
+      --color-muted-foreground: 0 0% 45%;
+      --color-border: 0 0% 90%;
+      --color-ring: var(--color-brand-hot-embers);
+      --color-surface-base: 0 0% 100%;
+      --color-surface-raised: 0 0% 98%;
+      --color-surface-overlay: 0 0% 100%;
+      --color-surface-flat: 0 0% 96%;
+      --theme-name: "White";
+    }
+
+    /* DARK THEME */
+    [data-theme="dark"] {
+      --color-background: var(--color-brand-jet);
+      --color-foreground: var(--color-brand-linen);
+      --color-primary: var(--color-brand-hot-embers);
+      --color-primary-foreground: 0 0% 100%;
+      --color-muted: 30 3% 28%;
+      --color-muted-foreground: 30 10% 65%;
+      --color-border: 30 3% 25%;
+      --color-ring: var(--color-brand-hot-embers);
+      --color-surface-base: var(--color-brand-jet);
+      --color-surface-raised: 30 3% 24%;
+      --color-surface-overlay: 30 3% 26%;
+      --color-surface-flat: 30 3% 18%;
+      --theme-name: "Dark";
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      background-color: hsl(var(--color-background));
+      color: hsl(var(--color-foreground));
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    ::selection {
+      background: hsl(var(--color-primary) / 0.2);
+    }
+
+    /* ============================================
+       GLASSMORPHISM
+       ============================================ */
+    .glass {
+      background: hsl(var(--color-surface-overlay) / 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid hsl(var(--color-border) / 0.5);
+    }
+
+    .glass-dark {
+      background: hsl(var(--color-brand-jet) / 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid hsl(var(--color-brand-linen) / 0.1);
+    }
+
+    .glass-light {
+      background: hsl(0 0% 100% / 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid hsl(0 0% 100% / 0.3);
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .container-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 5rem 0;
+      border-bottom: 1px solid hsl(var(--color-border));
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+    @media (max-width: 1024px) {
+      .grid-4, .grid-5 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4, .grid-5 {
+        grid-template-columns: 1fr;
+      }
+      .section { padding: 3rem 0; }
+    }
+
+    /* ============================================
+       HORIZONTAL SCROLL CONTAINER
+       ============================================ */
+    .horizontal-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 1rem 0;
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .horizontal-scroll > * {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      margin-bottom: 1rem;
+    }
+
+    .scroll-hint svg {
+      width: 20px;
+      height: 20px;
+      animation: scroll-hint 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scroll-hint {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(8px); }
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: hsl(var(--color-background) / 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid hsl(var(--color-border) / 0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      gap: 2rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-logo-dark {
+      display: none;
+    }
+
+    [data-theme="dark"] .nav-logo-light {
+      display: none;
+    }
+
+    [data-theme="dark"] .nav-logo-dark {
+      display: block;
+    }
+
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: hsl(var(--color-foreground));
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: hsl(var(--color-foreground));
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .nav-dropdown-btn:hover {
+      background: hsl(var(--color-muted) / 0.5);
+    }
+
+    .nav-dropdown-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform var(--duration-normal) var(--ease-out);
+    }
+
+    .nav-dropdown:hover .nav-dropdown-btn svg {
+      transform: rotate(180deg);
+    }
+
+    .nav-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      min-width: 200px;
+      background: hsl(var(--color-surface-overlay) / 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid hsl(var(--color-border));
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      padding: 0.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .nav-dropdown:hover .nav-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .nav-dropdown-link {
+      display: block;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: hsl(var(--color-foreground));
+      text-decoration: none;
+      padding: 0.625rem 1rem;
+      border-radius: var(--radius-md);
+      transition: background var(--duration-normal) var(--ease-out);
+    }
+
+    .nav-dropdown-link:hover {
+      background: hsl(var(--color-muted) / 0.5);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .theme-indicator {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      color: hsl(var(--color-muted-foreground));
+      padding: 0.375rem 0.75rem;
+      background: hsl(var(--color-muted) / 0.3);
+      border-radius: var(--radius-pill);
+    }
+
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      background: hsl(var(--color-muted) / 0.3);
+      border-radius: var(--radius-pill);
+    }
+
+    .theme-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      color: hsl(var(--color-muted-foreground));
+      transition: all var(--duration-normal) var(--ease-out);
+      font-size: 1rem;
+    }
+
+    .theme-btn:hover {
+      color: hsl(var(--color-foreground));
+    }
+
+    .theme-btn.active {
+      background: hsl(var(--color-surface-overlay));
+      color: hsl(var(--color-foreground));
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 1024px) {
+      .nav-center { display: none; }
+    }
+
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: hsl(var(--color-foreground));
+    }
+
+    @media (max-width: 1024px) {
+      .mobile-menu-btn { display: flex; }
+    }
+
+    /* ============================================
+       MOBILE MENU DRAWER
+       ============================================ */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: hsl(var(--color-brand-jet) / 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-slow) var(--ease-out);
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 85%;
+      max-width: 320px;
+      height: 100vh;
+      height: 100dvh;
+      background: hsl(var(--color-surface-overlay));
+      z-index: 1000;
+      transition: right var(--duration-slow) var(--ease-out);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid hsl(var(--color-border));
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-header span {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: var(--text-lg);
+    }
+
+    .mobile-menu-close {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: hsl(var(--color-muted) / 0.3);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      color: hsl(var(--color-foreground));
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .mobile-menu-content {
+      flex: 1;
+      padding: 1rem 0;
+      overflow-y: auto;
+    }
+
+    .mobile-menu-section {
+      padding: 0.5rem 1.25rem;
+    }
+
+    .mobile-menu-section h4 {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: hsl(var(--color-muted-foreground));
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0;
+    }
+
+    .mobile-menu-section a {
+      display: block;
+      padding: 0.75rem 0;
+      color: hsl(var(--color-foreground));
+      text-decoration: none;
+      font-size: var(--text-base);
+      border-bottom: 1px solid hsl(var(--color-border) / 0.5);
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .mobile-menu-section a:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-menu-section a:hover {
+      color: hsl(var(--color-primary));
+    }
+
+    .mobile-menu-footer {
+      padding: 1.25rem;
+      border-top: 1px solid hsl(var(--color-border));
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-theme {
+      margin-bottom: 1rem;
+    }
+
+    .mobile-menu-theme-label {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .mobile-menu-theme .theme-switcher {
+      width: 100%;
+      justify-content: space-between;
+      padding: 0.375rem;
+    }
+
+    .mobile-menu-theme .theme-btn {
+      flex: 1;
+    }
+
+    .mobile-menu-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .mobile-menu-actions .button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Hide nav items on mobile */
+    @media (max-width: 768px) {
+      .nav-actions .search-btn,
+      .nav-actions .theme-indicator,
+      .nav-actions .theme-switcher,
+      .nav-actions > .button-secondary {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 0.5rem;
+      }
+    }
+
+    /* ============================================
+       COPY BUTTON & TOAST
+       ============================================ */
+    .copyable {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      cursor: pointer;
+      padding: 0.125rem 0.5rem;
+      margin: -0.125rem -0.5rem;
+      border-radius: var(--radius-sm);
+      transition: background var(--duration-normal) var(--ease-out);
+    }
+
+    .copyable:hover {
+      background: hsl(var(--color-muted) / 0.5);
+    }
+
+    .copyable:hover .copy-icon {
+      opacity: 1;
+    }
+
+    .copy-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.3;
+      transition: opacity var(--duration-normal) var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: hsl(var(--color-foreground));
+      color: hsl(var(--color-background));
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      box-shadow: var(--shadow-xl);
+      opacity: 0;
+      transition: all var(--duration-slow) var(--ease-out);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ============================================
+       MODALS
+       ============================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: hsl(var(--color-brand-jet) / 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-slow) var(--ease-out);
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: hsl(var(--color-surface-overlay));
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+      max-width: 500px;
+      width: 100%;
+      max-height: calc(100vh - 4rem);
+      overflow: auto;
+      transform: scale(0.95) translateY(20px);
+      transition: all var(--duration-slow) var(--ease-spring);
+    }
+
+    .modal-overlay.active .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      padding: 1.5rem 1.5rem 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 500;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: hsl(var(--color-muted) / 0.3);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      color: hsl(var(--color-muted-foreground));
+      transition: all var(--duration-normal) var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .modal-close:hover {
+      background: hsl(var(--color-muted) / 0.5);
+      color: hsl(var(--color-foreground));
+    }
+
+    .modal-body {
+      padding: 1.25rem 1.5rem;
+      color: hsl(var(--color-muted-foreground));
+      font-size: var(--text-base);
+      line-height: 1.7;
+    }
+
+    .modal-footer {
+      padding: 0 1.5rem 1.5rem;
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    /* Image Modal - for lightbox */
+    .image-modal {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .image-modal img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .image-modal-caption {
+      text-align: center;
+      padding: 1rem;
+      color: hsl(var(--color-brand-linen));
+      font-size: var(--text-sm);
+    }
+
+    /* ============================================
+       TYPOGRAPHY
+       ============================================ */
+    .font-display { font-family: var(--font-display); }
+    .font-body { font-family: var(--font-body); }
+    .font-accent { font-family: var(--font-accent); }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      text-wrap: balance;
+      line-height: 1.2;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: hsl(var(--color-primary));
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading {
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      color: hsl(var(--color-muted-foreground));
+      font-size: var(--text-lg);
+      max-width: 65ch;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      padding: 10rem 0 6rem;
+      text-align: center;
+      margin-top: 3.5rem;
+    }
+
+    .hero-overline {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: hsl(var(--color-muted-foreground));
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-logo {
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-logo img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+    }
+
+    .hero-logo-light {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .hero-logo-dark {
+      display: none;
+      margin: 0 auto;
+    }
+
+    [data-theme="dark"] .hero-logo-light {
+      display: none;
+    }
+
+    [data-theme="dark"] .hero-logo-dark {
+      display: block;
+    }
+
+    .hero-title,
+    .hero-title-fallback {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span,
+    .hero-title-fallback span {
+      color: hsl(var(--color-primary));
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      color: hsl(var(--color-muted-foreground));
+      max-width: 50ch;
+      margin: 0 auto 2rem;
+      font-weight: 400;
+    }
+
+    .hero-theme-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      background: hsl(var(--color-muted) / 0.3);
+      color: hsl(var(--color-foreground));
+    }
+
+    .hero-theme-display .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: hsl(var(--color-primary));
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      padding: 0.875rem 1.75rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out);
+      text-decoration: none;
+    }
+
+    .button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px hsl(var(--color-background)), 0 0 0 4px hsl(var(--color-ring));
+    }
+
+    .button:active {
+      transform: scale(0.98);
+    }
+
+    .button-primary {
+      background: hsl(var(--color-primary));
+      color: hsl(var(--color-primary-foreground));
+    }
+
+    .button-primary:hover {
+      background: hsl(var(--color-primary) / 0.9);
+      box-shadow: 0 4px 12px hsl(var(--color-primary) / 0.3);
+    }
+
+    /* Secondary button is now outline style */
+    .button-secondary {
+      background: transparent;
+      color: hsl(var(--color-foreground));
+      border: 1.5px solid hsl(var(--color-border));
+    }
+
+    .button-secondary:hover {
+      background: hsl(var(--color-muted) / 0.5);
+      border-color: hsl(var(--color-muted-foreground) / 0.3);
+    }
+
+    .button-ghost {
+      background: transparent;
+      color: hsl(var(--color-foreground));
+    }
+
+    .button-ghost:hover {
+      background: hsl(var(--color-muted) / 0.5);
+    }
+
+    /* Glass button for over images */
+    .button-glass {
+      background: hsl(0 0% 100% / 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: white;
+      border: 1px solid hsl(0 0% 100% / 0.3);
+    }
+
+    .button-glass:hover {
+      background: hsl(0 0% 100% / 0.3);
+    }
+
+    .button-sm {
+      padding: 0.5rem 1.125rem;
+      font-size: var(--text-xs);
+    }
+
+    .button-lg {
+      padding: 1.125rem 2.25rem;
+      font-size: var(--text-base);
+    }
+
+    /* ============================================
+       CARDS & SURFACES
+       ============================================ */
+    .card {
+      background: hsl(var(--color-surface-overlay));
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .card-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform var(--duration-slow) var(--ease-out);
+    }
+
+    .card-image:hover img {
+      transform: scale(1.02);
+    }
+
+    .card-image-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 1rem;
+      background: linear-gradient(to top, hsl(var(--color-brand-jet) / 0.6), transparent);
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-out);
+    }
+
+    .card-image:hover .card-image-overlay {
+      opacity: 1;
+    }
+
+    .surface-flat {
+      background: hsl(var(--color-surface-flat));
+    }
+
+    .surface-raised {
+      background: hsl(var(--color-surface-raised));
+      border: 1px solid hsl(var(--color-border));
+    }
+
+    .surface-elevated {
+      background: hsl(var(--color-surface-overlay));
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ============================================
+       COLOR SWATCHES
+       ============================================ */
+    .color-card {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: hsl(var(--color-surface-overlay));
+      box-shadow: var(--shadow-md);
+    }
+
+    .color-swatch {
+      height: 160px;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .color-swatch-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      padding: 0.375rem 0.625rem;
+      border-radius: var(--radius-sm);
+      background: hsl(var(--color-background) / 0.9);
+      color: hsl(var(--color-foreground));
+    }
+
+    .color-info {
+      padding: 1.25rem;
+    }
+
+    .color-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: var(--text-base);
+      margin-bottom: 0.375rem;
+    }
+
+    .color-values {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    .color-values code {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: var(--text-xs);
+      background: hsl(var(--color-muted) / 0.5);
+      padding: 0.125rem 0.375rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .swatch-jet { background-color: #373534; }
+    .swatch-linen { background-color: #f7f1e9; }
+    .swatch-hot-embers { background-color: #F25431; }
+    .swatch-mist { background-color: #efefed; }
+
+    /* ============================================
+       LOGO DISPLAY
+       ============================================ */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .logo-card {
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .logo-card img {
+      max-width: 70%;
+      max-height: 60%;
+      object-fit: contain;
+    }
+
+    .logo-card-light {
+      background: #ffffff;
+      border: 1px solid hsl(var(--color-border));
+    }
+
+    .logo-card-dark {
+      background: #373534;
+    }
+
+    .logo-card-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .logo-card-light .logo-card-label {
+      background: hsl(var(--color-muted) / 0.5);
+      color: hsl(var(--color-foreground));
+    }
+
+    .logo-card-dark .logo-card-label {
+      background: hsl(var(--color-brand-linen) / 0.2);
+      color: hsl(var(--color-brand-linen));
+    }
+
+    .logo-download-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-out);
+    }
+
+    .logo-card:hover .logo-download-btn {
+      opacity: 1;
+    }
+
+    /* ============================================
+       IMAGE CAROUSEL
+       ============================================ */
+    .carousel-item {
+      width: 320px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform var(--duration-slow) var(--ease-out);
+    }
+
+    .carousel-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .carousel-item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 1rem 1rem;
+      background: linear-gradient(to top, hsl(var(--color-brand-jet) / 0.8), transparent);
+      color: white;
+    }
+
+    .carousel-item-title {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       ICONOGRAPHY SECTION
+       ============================================ */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.5rem 1rem;
+      background: hsl(var(--color-surface-flat));
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .icon-item:hover {
+      background: hsl(var(--color-muted) / 0.5);
+      transform: translateY(-2px);
+    }
+
+    .icon-item svg {
+      width: 28px;
+      height: 28px;
+      color: hsl(var(--color-foreground));
+    }
+
+    .icon-item-name {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: hsl(var(--color-muted-foreground));
+      text-align: center;
+    }
+
+    .icon-styles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .icon-style-card {
+      padding: 1.5rem;
+      background: hsl(var(--color-surface-raised));
+      border: 1px solid hsl(var(--color-border));
+      border-radius: var(--radius-xl);
+      text-align: center;
+    }
+
+    .icon-style-preview {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .icon-style-preview svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .icon-style-name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .icon-style-desc {
+      font-size: var(--text-xs);
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    /* ============================================
+       TEMPLATES SECTION
+       ============================================ */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .template-card {
+      background: hsl(var(--color-surface-overlay));
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .template-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .template-preview {
+      height: 180px;
+      background: hsl(var(--color-surface-flat));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid hsl(var(--color-border));
+    }
+
+    .template-preview-placeholder {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      text-align: center;
+    }
+
+    .template-preview-placeholder svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.5rem;
+      opacity: 0.5;
+    }
+
+    .template-info {
+      padding: 1.25rem;
+    }
+
+    .template-name {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .template-desc {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      margin-bottom: 1rem;
+    }
+
+    /* ============================================
+       HOVER EFFECTS DEMO
+       ============================================ */
+    .hover-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .hover-demo-item {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: hsl(var(--color-surface-flat));
+      border-radius: var(--radius-xl);
+      text-align: center;
+    }
+
+    .hover-box {
+      width: 64px;
+      height: 64px;
+      background: hsl(var(--color-primary));
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+    }
+
+    .hover-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    /* Hover effect variants */
+    .hover-lift {
+      transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
+    }
+    .hover-lift:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px hsl(var(--color-primary) / 0.35);
+    }
+
+    .hover-scale {
+      transition: transform var(--duration-normal) var(--ease-spring);
+    }
+    .hover-scale:hover {
+      transform: scale(1.1);
+    }
+
+    .hover-glow {
+      transition: box-shadow var(--duration-slow) var(--ease-out);
+    }
+    .hover-glow:hover {
+      box-shadow: 0 0 40px hsl(var(--color-primary) / 0.6);
+    }
+
+    .hover-rotate {
+      transition: transform var(--duration-slow) var(--ease-spring);
+    }
+    .hover-rotate:hover {
+      transform: rotate(8deg) scale(1.05);
+    }
+
+    /* ============================================
+       MOTION & ANIMATION SECTION
+       ============================================ */
+    .animation-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .animation-card {
+      padding: 2rem;
+      background: hsl(var(--color-surface-raised));
+      border: 1px solid hsl(var(--color-border));
+      border-radius: var(--radius-xl);
+    }
+
+    .animation-preview {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: hsl(var(--color-surface-flat));
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .animation-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .animation-description {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      margin-bottom: 1rem;
+    }
+
+    .code-block {
+      background: hsl(var(--color-brand-jet));
+      color: hsl(var(--color-brand-linen));
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: var(--text-xs);
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    /* Animated elements */
+    .anim-box {
+      width: 60px;
+      height: 60px;
+      background: hsl(var(--color-primary));
+      border-radius: var(--radius-md);
+    }
+
+    /* ============================================
+       BRAND MESSAGING
+       ============================================ */
+    .messaging-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .messaging-card {
+      padding: 2rem;
+      background: hsl(var(--color-surface-flat));
+      border-radius: var(--radius-xl);
+    }
+
+    .messaging-card h4 {
+      font-size: var(--text-lg);
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      color: hsl(var(--color-primary));
+    }
+
+    .messaging-card p {
+      color: hsl(var(--color-muted-foreground));
+      font-size: var(--text-base);
+      line-height: 1.7;
+    }
+
+    .tagline-showcase {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: hsl(var(--color-surface-raised));
+      border: 1px solid hsl(var(--color-border));
+      border-radius: var(--radius-2xl);
+      margin-bottom: 2rem;
+    }
+
+    .tagline {
+      font-family: var(--font-accent);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      color: hsl(var(--color-foreground));
+      margin-bottom: 1rem;
+    }
+
+    .tagline-sub {
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      color: hsl(var(--color-muted-foreground));
+      max-width: 50ch;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       APPLE-STYLE TEXT PATTERN
+       Bold headline + muted description inline
+       ============================================ */
+    .text-combo {
+      font-size: var(--text-base);
+      line-height: 1.7;
+    }
+
+    .text-combo .text-bold {
+      font-weight: 600;
+      color: hsl(var(--color-foreground));
+    }
+
+    .text-combo .text-muted {
+      font-weight: 400;
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    /* Feature text - larger version */
+    .feature-text {
+      font-size: var(--text-lg);
+      line-height: 1.6;
+      max-width: 45ch;
+    }
+
+    .feature-text .text-bold {
+      font-weight: 600;
+      color: hsl(var(--color-foreground));
+    }
+
+    .feature-text .text-muted {
+      font-weight: 400;
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    /* Spec list style - bold label, muted value */
+    .spec-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .spec-item {
+      font-size: var(--text-base);
+    }
+
+    .spec-item .spec-label {
+      font-weight: 600;
+      color: hsl(var(--color-foreground));
+    }
+
+    .spec-item .spec-value {
+      font-weight: 400;
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    /* Feature grid for Apple-style cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      padding: 0;
+    }
+
+    .feature-card-image {
+      aspect-ratio: 4/3;
+      background: hsl(var(--color-surface-flat));
+      border-radius: var(--radius-xl);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .feature-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================
+       SEARCH
+       ============================================ */
+    .search-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: hsl(var(--color-muted) / 0.3);
+      border: 1px solid hsl(var(--color-border));
+      border-radius: var(--radius-md);
+      color: hsl(var(--color-muted-foreground));
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .search-btn:hover {
+      background: hsl(var(--color-muted) / 0.5);
+      color: hsl(var(--color-foreground));
+    }
+
+    .search-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .search-btn kbd {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      padding: 0.125rem 0.375rem;
+      background: hsl(var(--color-surface-overlay));
+      border: 1px solid hsl(var(--color-border));
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      background: hsl(var(--color-brand-jet) / 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-normal) var(--ease-out);
+    }
+
+    .search-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .search-modal {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      width: 90%;
+      max-width: 600px;
+      background: hsl(var(--color-surface-overlay));
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      z-index: 1001;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-slow) var(--ease-spring);
+    }
+
+    .search-overlay.active + .search-modal,
+    .search-modal.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .search-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid hsl(var(--color-border));
+    }
+
+    .search-header svg {
+      width: 20px;
+      height: 20px;
+      color: hsl(var(--color-muted-foreground));
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: hsl(var(--color-foreground));
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    .search-close {
+      padding: 0.25rem 0.5rem;
+      background: hsl(var(--color-muted) / 0.3);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: hsl(var(--color-muted-foreground));
+      cursor: pointer;
+    }
+
+    .search-results {
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 0.5rem;
+    }
+
+    .search-results:empty::after {
+      content: 'Start typing to search...';
+      display: block;
+      padding: 2rem;
+      text-align: center;
+      color: hsl(var(--color-muted-foreground));
+      font-size: var(--text-sm);
+    }
+
+    .search-result {
+      display: block;
+      padding: 0.875rem 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: hsl(var(--color-foreground));
+      transition: background var(--duration-fast) var(--ease-out);
+    }
+
+    .search-result:hover,
+    .search-result.active {
+      background: hsl(var(--color-muted) / 0.5);
+    }
+
+    .search-result-category {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: hsl(var(--color-primary));
+      margin-bottom: 0.25rem;
+    }
+
+    .search-result-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .search-result-description {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    .search-no-results {
+      padding: 2rem;
+      text-align: center;
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    .search-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid hsl(var(--color-border));
+      font-size: var(--text-xs);
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    .search-footer-shortcuts {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .search-footer-shortcuts span {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .search-footer-shortcuts kbd {
+      font-family: var(--font-body);
+      font-size: 0.625rem;
+      padding: 0.125rem 0.375rem;
+      background: hsl(var(--color-muted) / 0.5);
+      border: 1px solid hsl(var(--color-border));
+      border-radius: 3px;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background: hsl(var(--color-surface-flat));
+      border-top: 1px solid hsl(var(--color-border));
+      padding: 4rem 0 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1fr);
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      max-width: 280px;
+    }
+
+    .footer-logo {
+      height: 32px;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo-dark {
+      display: none;
+    }
+
+    [data-theme="dark"] .footer-logo-light {
+      display: none;
+    }
+
+    [data-theme="dark"] .footer-logo-dark {
+      display: block;
+    }
+
+    .footer-tagline {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      line-height: 1.6;
+    }
+
+    .footer-column h4 {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: hsl(var(--color-foreground));
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+
+    .footer-links a {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .footer-links a:hover {
+      color: hsl(var(--color-primary));
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid hsl(var(--color-border));
+    }
+
+    .footer-copyright {
+      font-size: var(--text-sm);
+      color: hsl(var(--color-muted-foreground));
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: hsl(var(--color-muted) / 0.3);
+      color: hsl(var(--color-muted-foreground));
+      transition: all var(--duration-fast) var(--ease-out);
+    }
+
+    .footer-social a:hover {
+      background: hsl(var(--color-primary));
+      color: white;
+    }
+
+    .footer-social svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .search-btn kbd {
+        display: none;
+      }
+    }
+
+    /* ============================================
+       PRINT STYLES
+       ============================================ */
+    @media print {
+      .nav, .theme-switcher, .button, .toast, .no-print {
+        display: none !important;
+      }
+
+      body {
+        background: white;
+        color: #373534;
+        font-size: 12pt;
+      }
+
+      .section {
+        page-break-inside: avoid;
+        padding: 2rem 0;
+      }
+
+      .hero {
+        padding: 3rem 0 2rem;
+        margin-top: 0;
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE ADJUSTMENTS
+       ============================================ */
+    @media (max-width: 768px) {
+      :root {
+        --text-base: 1rem;
+        --text-sm: 0.875rem;
+        --text-xs: 0.75rem;
+        --text-lg: 1.0625rem;
+      }
+
+      .section-heading {
+        font-size: 1.875rem;
+      }
+
+      .hero-title,
+      .hero-title-fallback {
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+
+      .hero-logo img {
+        max-width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container-wide">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <img src="Logos/outmore logo.svg" alt="Outmore Living" class="nav-logo-light" onerror="this.style.display='none'">
+          <img src="Logos/Outmore Living Logo White.svg" alt="Outmore Living" class="nav-logo-dark" onerror="this.style.display='none'">
+        </a>
+
+        <div class="nav-center">
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Brand
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="#mission" class="nav-dropdown-link">Mission</a>
+              <a href="#voice" class="nav-dropdown-link">Brand Voice</a>
+              <a href="#messaging" class="nav-dropdown-link">Messaging</a>
+            </div>
+          </div>
+
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Visual Identity
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="#logos" class="nav-dropdown-link">Logos</a>
+              <a href="#colors" class="nav-dropdown-link">Colors</a>
+              <a href="#typography" class="nav-dropdown-link">Typography</a>
+              <a href="#iconography" class="nav-dropdown-link">Iconography</a>
+            </div>
+          </div>
+
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Photography
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="#photography" class="nav-dropdown-link">Guidelines</a>
+              <a href="#thermal" class="nav-dropdown-link">Thermal Imaging</a>
+            </div>
+          </div>
+
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Web
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="#motion" class="nav-dropdown-link">Motion & Animation</a>
+              <a href="#hover" class="nav-dropdown-link">Hover Effects</a>
+              <a href="#modals" class="nav-dropdown-link">Modals</a>
+              <a href="#components" class="nav-dropdown-link">Components</a>
+              <a href="#horizontal-scroll" class="nav-dropdown-link">Horizontal Scroll</a>
+              <a href="#glassmorphism" class="nav-dropdown-link">Glassmorphism</a>
+            </div>
+          </div>
+
+          <div class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Resources
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="#templates" class="nav-dropdown-link">Templates</a>
+              <a href="#downloads" class="nav-dropdown-link">Downloads</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <button class="search-btn no-print" onclick="openSearch()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Search
+            <kbd>⌘K</kbd>
+          </button>
+          <span class="theme-indicator" id="theme-indicator">Light Theme</span>
+          <div class="theme-switcher">
+            <button class="theme-btn active" data-theme="light" title="Light">☀</button>
+            <button class="theme-btn" data-theme="beige" title="Beige">◐</button>
+            <button class="theme-btn" data-theme="white" title="White">○</button>
+            <button class="theme-btn" data-theme="dark" title="Dark">●</button>
+          </div>
+          <button class="button button-secondary button-sm no-print" onclick="exportPDF()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Export PDF
+          </button>
+          <button class="mobile-menu-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="mobile-menu-header">
+      <span>Menu</span>
+      <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
+    </div>
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-section">
+        <h4>Brand</h4>
+        <a href="#mission" onclick="closeMobileMenu()">Mission</a>
+        <a href="#voice" onclick="closeMobileMenu()">Brand Voice</a>
+        <a href="#messaging" onclick="closeMobileMenu()">Messaging</a>
+      </div>
+      <div class="mobile-menu-section">
+        <h4>Visual Identity</h4>
+        <a href="#logos" onclick="closeMobileMenu()">Logos</a>
+        <a href="#colors" onclick="closeMobileMenu()">Colors</a>
+        <a href="#typography" onclick="closeMobileMenu()">Typography</a>
+        <a href="#iconography" onclick="closeMobileMenu()">Iconography</a>
+      </div>
+      <div class="mobile-menu-section">
+        <h4>Photography</h4>
+        <a href="#photography" onclick="closeMobileMenu()">Guidelines</a>
+        <a href="#thermal" onclick="closeMobileMenu()">Thermal Imaging</a>
+      </div>
+      <div class="mobile-menu-section">
+        <h4>Web</h4>
+        <a href="#motion" onclick="closeMobileMenu()">Motion & Animation</a>
+        <a href="#hover" onclick="closeMobileMenu()">Hover Effects</a>
+        <a href="#modals" onclick="closeMobileMenu()">Modals</a>
+        <a href="#components" onclick="closeMobileMenu()">Components</a>
+        <a href="#horizontal-scroll" onclick="closeMobileMenu()">Horizontal Scroll</a>
+        <a href="#glassmorphism" onclick="closeMobileMenu()">Glassmorphism</a>
+      </div>
+      <div class="mobile-menu-section">
+        <h4>Resources</h4>
+        <a href="#templates" onclick="closeMobileMenu()">Templates</a>
+        <a href="#downloads" onclick="closeMobileMenu()">Downloads</a>
+      </div>
+    </div>
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-theme">
+        <span class="mobile-menu-theme-label">Theme</span>
+        <div class="theme-switcher">
+          <button class="theme-btn" data-theme="light" title="Light">☀</button>
+          <button class="theme-btn" data-theme="beige" title="Beige">◐</button>
+          <button class="theme-btn" data-theme="white" title="White">○</button>
+          <button class="theme-btn" data-theme="dark" title="Dark">●</button>
+        </div>
+      </div>
+      <div class="mobile-menu-actions">
+        <button class="button button-secondary" onclick="openSearch(); closeMobileMenu();">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search
+        </button>
+        <button class="button button-primary" onclick="exportPDF(); closeMobileMenu();">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Export PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <p class="hero-overline">Brand Guide</p>
+        <div class="hero-logo">
+          <img src="Logos/outmore logo.svg" alt="Outmore Living" class="hero-logo-light" onerror="this.style.display='none'; document.querySelector('.hero-title-fallback').style.display='block'">
+          <img src="Logos/Outmore Living Logo White.svg" alt="Outmore Living" class="hero-logo-dark" onerror="this.style.display='none'">
+          <h1 class="hero-title-fallback" style="display: none;">Outmore <span>Living</span></h1>
+        </div>
+        <p class="hero-subtitle">A comprehensive guide to our visual language, voice, and digital presence.</p>
+        <div class="hero-theme-display">
+          <span class="dot"></span>
+          <span id="current-theme-name">Light Theme</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="section">
+      <div class="container">
+        <p class="section-title">Brand</p>
+        <h2 class="section-heading">Mission</h2>
+        <p class="section-description">Our purpose and the promise we make to our customers.</p>
+
+        <div class="tagline-showcase">
+          <p class="tagline">Be Outmore.</p>
+          <p class="tagline-sub">Outmore Living creates heated outdoor furniture that extends life beyond four walls. We believe comfort shouldn't end at the door—it should follow you outside.</p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-card-image" style="background: linear-gradient(135deg, hsl(var(--color-surface-flat)), hsl(var(--color-muted)));">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-primary))" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <p class="feature-text"><span class="text-bold">Year-round living.</span> <span class="text-muted">Outdoor moments are meant to be enjoyed in every season. Cold weather shouldn't mean retreating indoors.</span></p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-image" style="background: linear-gradient(135deg, hsl(var(--color-surface-flat)), hsl(var(--color-muted)));">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-primary))" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <p class="feature-text"><span class="text-bold">Premium by design.</span> <span class="text-muted">Beautifully crafted heated furniture that seamlessly blends warmth, comfort, and sophisticated style.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Voice Section -->
+    <section id="voice" class="section">
+      <div class="container">
+        <p class="section-title">Brand</p>
+        <h2 class="section-heading">Brand Voice</h2>
+        <p class="section-description">How we communicate with our audience.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Warm.</span> <span class="text-muted">Inviting, comfortable, and embracing. Our words create a feeling of welcome and connection.</span></p>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Confident.</span> <span class="text-muted">Assured without arrogance. We know our products deliver on their promise of quality.</span></p>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Refined.</span> <span class="text-muted">Elevated, sophisticated, and premium. Every word choice reflects our commitment to quality.</span></p>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Clear.</span> <span class="text-muted">Direct, concise, and no fluff. We respect our audience's time and intelligence.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Messaging Section -->
+    <section id="messaging" class="section">
+      <div class="container">
+        <p class="section-title">Brand</p>
+        <h2 class="section-heading">Messaging</h2>
+        <p class="section-description">Key phrases and copy patterns.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <p class="feature-text" style="font-size: var(--text-xl);"><span class="text-bold">Headlines</span></p>
+            <div class="spec-list" style="margin-top: 1rem;">
+              <p class="spec-item"><span class="spec-value">"Warmth, Without Walls"</span></p>
+              <p class="spec-item"><span class="spec-value">"Your Season, Redefined"</span></p>
+              <p class="spec-item"><span class="spec-value">"Comfort That Follows You"</span></p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text" style="font-size: var(--text-xl);"><span class="text-bold">Subheadlines</span></p>
+            <div class="spec-list" style="margin-top: 1rem;">
+              <p class="spec-item"><span class="spec-value">"Heated outdoor furniture that turns any season into your season."</span></p>
+              <p class="spec-item"><span class="spec-value">"Premium design meets intelligent warmth."</span></p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text" style="font-size: var(--text-xl);"><span class="text-bold">Calls to Action</span></p>
+            <div class="spec-list" style="margin-top: 1rem;">
+              <p class="spec-item"><span class="spec-value">"Explore the Collection"</span></p>
+              <p class="spec-item"><span class="spec-value">"Experience Warmth"</span></p>
+              <p class="spec-item"><span class="spec-value">"Shop Now"</span></p>
+              <p class="spec-item"><span class="spec-value">"Learn More"</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logos Section -->
+    <section id="logos" class="section">
+      <div class="container">
+        <p class="section-title">Visual Identity</p>
+        <h2 class="section-heading">Logos</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Our identity.</span> <span class="text-muted">Logo assets and usage guidelines for consistent brand representation.</span></p>
+
+        <div class="logo-grid">
+          <div class="logo-card logo-card-light" onclick="openImageModal('Logos/outmore logo.svg', 'Primary Logo - Light Background')">
+            <img src="Logos/outmore logo.svg" alt="Outmore Logo" onerror="this.parentElement.innerHTML='<div class=\'template-preview-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Logo</div>'">
+            <span class="logo-card-label">Light Background</span>
+            <button class="button button-glass button-sm logo-download-btn" onclick="event.stopPropagation()">Download</button>
+          </div>
+          <div class="logo-card logo-card-dark" onclick="openImageModal('Logos/Outmore Living Logo White.svg', 'Logo - Dark Background')">
+            <img src="Logos/Outmore Living Logo White.svg" alt="Outmore Logo White" onerror="this.parentElement.innerHTML='<div class=\'template-preview-placeholder\' style=\'color: white\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Logo</div>'">
+            <span class="logo-card-label">Dark Background</span>
+            <button class="button button-glass button-sm logo-download-btn" onclick="event.stopPropagation()">Download</button>
+          </div>
+          <div class="logo-card logo-card-light" onclick="openImageModal('Logos/Logo - Outmore Living (Degrees)- Jet.png', 'Logo with Degrees Mark')">
+            <img src="Logos/Logo - Outmore Living (Degrees)- Jet.png" alt="Outmore Logo with Degrees" onerror="this.parentElement.innerHTML='<div class=\'template-preview-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Logo</div>'">
+            <span class="logo-card-label">Degrees Mark</span>
+            <button class="button button-glass button-sm logo-download-btn" onclick="event.stopPropagation()">Download</button>
+          </div>
+          <div class="logo-card logo-card-light" onclick="openImageModal('Logos/favicon v4.png', 'Favicon')">
+            <img src="Logos/favicon v4.png" alt="Favicon" style="max-width: 40%;" onerror="this.parentElement.innerHTML='<div class=\'template-preview-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg>Favicon</div>'">
+            <span class="logo-card-label">Favicon</span>
+            <button class="button button-glass button-sm logo-download-btn" onclick="event.stopPropagation()">Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors Section -->
+    <section id="colors" class="section">
+      <div class="container">
+        <p class="section-title">Visual Identity</p>
+        <h2 class="section-heading">Colors</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Warmth and sophistication.</span> <span class="text-muted">Our color palette communicates comfort, premium quality, and inviting energy.</span></p>
+
+        <div class="grid grid-4">
+          <div class="color-card">
+            <div class="color-swatch swatch-jet">
+              <span class="color-swatch-label" style="color: #f7f1e9; background: rgba(0,0,0,0.3)">Primary</span>
+            </div>
+            <div class="color-info">
+              <div class="color-name">Jet</div>
+              <div class="color-values">
+                <span class="copyable" onclick="copyToClipboard('#373534')">#373534 <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-swatch swatch-linen">
+              <span class="color-swatch-label">Background</span>
+            </div>
+            <div class="color-info">
+              <div class="color-name">Linen</div>
+              <div class="color-values">
+                <span class="copyable" onclick="copyToClipboard('#f7f1e9')">#f7f1e9 <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-swatch swatch-hot-embers">
+              <span class="color-swatch-label" style="color: white; background: rgba(0,0,0,0.2)">Accent</span>
+            </div>
+            <div class="color-info">
+              <div class="color-name">Hot Embers</div>
+              <div class="color-values">
+                <span class="copyable" onclick="copyToClipboard('#F25431')">#F25431 <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-swatch swatch-mist">
+              <span class="color-swatch-label">Surface</span>
+            </div>
+            <div class="color-info">
+              <div class="color-name">Mist</div>
+              <div class="color-values">
+                <span class="copyable" onclick="copyToClipboard('#efefed')">#efefed <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-top: 3rem; margin-bottom: 1.5rem;"><span class="text-bold">Heated Glow Gradient</span></p>
+        <div class="color-card" style="max-width: 600px;">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #F25431 0%, #FF8A5C 50%, #FFB347 100%);">
+            <span class="color-swatch-label" style="color: white; background: rgba(0,0,0,0.2)">Gradient</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Heated Glow</div>
+            <div class="color-values">
+              <span class="copyable" onclick="copyToClipboard('linear-gradient(135deg, #F25431 0%, #FF8A5C 50%, #FFB347 100%)')">
+                <code style="font-size: var(--text-xs);">linear-gradient(135deg, #F25431, #FF8A5C, #FFB347)</code>
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section id="typography" class="section">
+      <div class="container">
+        <p class="section-title">Visual Identity</p>
+        <h2 class="section-heading">Typography</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Hierarchy and personality.</span> <span class="text-muted">Our type system creates clear visual structure while expressing our brand's refined character.</span></p>
+
+        <div class="feature-grid" style="margin-bottom: 3rem;">
+          <div class="feature-card">
+            <p style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 400; margin-bottom: 1rem; letter-spacing: -0.01em;">Poppins</p>
+            <p class="feature-text"><span class="text-bold">Display.</span> <span class="text-muted">Headlines, hero text, and navigation. Clean, modern, and confident.</span></p>
+          </div>
+          <div class="feature-card">
+            <p style="font-family: var(--font-body); font-size: 2.5rem; font-weight: 400; margin-bottom: 1rem;">DM Sans</p>
+            <p class="feature-text"><span class="text-bold">Body.</span> <span class="text-muted">Body copy, UI text, and labels. Highly readable across all sizes.</span></p>
+          </div>
+          <div class="feature-card">
+            <p style="font-family: var(--font-accent); font-size: 2.5rem; font-weight: 400; margin-bottom: 1rem;">Cormorant Garamond</p>
+            <p class="feature-text"><span class="text-bold">Accent.</span> <span class="text-muted">Editorial and decorative moments. An elegant serif for special occasions.</span></p>
+          </div>
+        </div>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-bottom: 1.5rem;"><span class="text-bold">Type Scale</span></p>
+        <div class="surface-raised" style="padding: 2rem; border-radius: var(--radius-xl);">
+          <div style="margin-bottom: 1.5rem;">
+            <span style="font-size: var(--text-xs); color: hsl(var(--color-muted-foreground)); margin-bottom: 0.25rem; display: block;">6XL - 3.75rem / 60px</span>
+            <p style="font-family: var(--font-display); font-size: 3.75rem; font-weight: 300; line-height: 1.1;">Display Heading</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <span style="font-size: var(--text-xs); color: hsl(var(--color-muted-foreground)); margin-bottom: 0.25rem; display: block;">4XL - 2.25rem / 36px</span>
+            <p style="font-family: var(--font-display); font-size: 2.25rem; font-weight: 400; line-height: 1.2;">Hero Headline</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <span style="font-size: var(--text-xs); color: hsl(var(--color-muted-foreground)); margin-bottom: 0.25rem; display: block;">2XL - 1.5rem / 24px</span>
+            <p style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; line-height: 1.4;">Section Header</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <span style="font-size: var(--text-xs); color: hsl(var(--color-muted-foreground)); margin-bottom: 0.25rem; display: block;">LG - 1.1875rem / 19px</span>
+            <p style="font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.6;">Lead paragraph text for introductions and emphasis.</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <span style="font-size: var(--text-xs); color: hsl(var(--color-muted-foreground)); margin-bottom: 0.25rem; display: block;">Base - 1.0625rem / 17px</span>
+            <p style="font-family: var(--font-body); font-size: var(--text-base); line-height: 1.7;">Body text for general content. This is the default size for paragraphs and most UI text throughout our applications and website.</p>
+          </div>
+          <div>
+            <span style="font-size: var(--text-xs); color: hsl(var(--color-muted-foreground)); margin-bottom: 0.25rem; display: block;">SM - 0.9375rem / 15px</span>
+            <p style="font-family: var(--font-body); font-size: var(--text-sm); line-height: 1.5; color: hsl(var(--color-muted-foreground));">Secondary text, captions, and metadata. Used for supporting information.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Iconography Section -->
+    <section id="iconography" class="section">
+      <div class="container">
+        <p class="section-title">Visual Identity</p>
+        <h2 class="section-heading">Iconography</h2>
+
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Consistent and clear.</span> <span class="text-muted">We use outlined icons with 1.5-2px stroke weight. Icons should be simple, recognizable, and consistent in style throughout all touchpoints.</span></p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon-style-preview" style="margin-bottom: 1.5rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <p class="feature-text"><span class="text-bold">Outline.</span> <span class="text-muted">Primary style with 1.5px stroke. Used for navigation, UI elements, and default states.</span></p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-style-preview" style="margin-bottom: 1.5rem;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <p class="feature-text"><span class="text-bold">Filled.</span> <span class="text-muted">Used for active and selected states. Provides clear visual feedback for interaction.</span></p>
+          </div>
+        </div>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-top: 3rem; margin-bottom: 1.5rem;"><span class="text-bold">Common Icons</span></p>
+        <div class="icon-grid">
+          <div class="icon-item" onclick="copyToClipboard('home')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="icon-item-name">Home</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('search')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="icon-item-name">Search</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('cart')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span class="icon-item-name">Cart</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('user')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="icon-item-name">User</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('heart')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span class="icon-item-name">Heart</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('menu')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <span class="icon-item-name">Menu</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('close')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span class="icon-item-name">Close</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('arrow-right')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <span class="icon-item-name">Arrow</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('check')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="icon-item-name">Check</span>
+          </div>
+          <div class="icon-item" onclick="copyToClipboard('thermometer')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+            <span class="icon-item-name">Temperature</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photography Section -->
+    <section id="photography" class="section">
+      <div class="container">
+        <p class="section-title">Photography</p>
+        <h2 class="section-heading">Photo Guidelines</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Warmth and comfort.</span> <span class="text-muted">Our photography captures the feeling of outdoor living at its finest—inviting, aspirational, and genuine.</span></p>
+
+        <div class="scroll-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          Scroll horizontally to see more
+        </div>
+
+        <div class="horizontal-scroll">
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800', 'Lifestyle - Outdoor Living')">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" alt="Outdoor Living">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Lifestyle Shots</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', 'Product - Context')">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Product Context">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Product in Context</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800', 'Warmth & Comfort')">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400" alt="Warmth">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Warmth & Comfort</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=800', 'Evening Atmosphere')">
+            <img src="https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=400" alt="Evening">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Evening Atmosphere</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800', 'Architecture Integration')">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400" alt="Architecture">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Architecture Integration</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="messaging-grid" style="margin-top: 3rem;">
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Lighting.</span> <span class="text-muted">Natural light preferred. Golden hour and blue hour create the warmest atmosphere. Avoid harsh midday shadows.</span></p>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Composition.</span> <span class="text-muted">Generous negative space. Products should breathe within the frame. Rule of thirds for lifestyle shots.</span></p>
+          </div>
+          <div class="feature-card">
+            <p class="feature-text"><span class="text-bold">Color Grading.</span> <span class="text-muted">Warm tones that complement our brand colors. Slightly lifted shadows. Natural, not overly processed.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thermal Imaging Section -->
+    <section id="thermal" class="section">
+      <div class="container">
+        <p class="section-title">Photography</p>
+        <h2 class="section-heading">Thermal Imaging</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Heat made visible.</span> <span class="text-muted">A unique visual element that showcases our heated technology and differentiates our products.</span></p>
+
+        <div class="surface-raised" style="padding: 3rem; border-radius: var(--radius-2xl); text-align: center;">
+          <div style="width: 200px; height: 200px; margin: 0 auto 2rem; background: var(--gradient-heated-glow); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center;">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+          </div>
+          <p class="feature-text" style="max-width: 50ch; margin: 0 auto;"><span class="text-bold">Coming soon.</span> <span class="text-muted">Thermal imaging photography to be added. These visuals demonstrate the heat distribution and effectiveness of our heated products.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Glassmorphism Section -->
+    <section id="glassmorphism" class="section">
+      <div class="container">
+        <p class="section-title">Web</p>
+        <h2 class="section-heading">Glassmorphism</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Layered depth.</span> <span class="text-muted">Translucent, frosted glass effects create modern, sophisticated interfaces with visual hierarchy through blur and transparency.</span></p>
+
+        <div class="grid grid-3">
+          <div style="height: 300px; background: linear-gradient(135deg, #F25431, #FF8A5C); border-radius: var(--radius-xl); padding: 2rem; display: flex; flex-direction: column; justify-content: flex-end; position: relative;">
+            <div class="glass" style="padding: 1.5rem; border-radius: var(--radius-lg);">
+              <p class="feature-text"><span class="text-bold" style="color: hsl(var(--color-foreground));">Glass Card.</span> <span class="text-muted" style="color: hsl(var(--color-muted-foreground));">Frosted glass on colored backgrounds.</span></p>
+            </div>
+          </div>
+
+          <div style="height: 300px; background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400') center/cover; border-radius: var(--radius-xl); padding: 2rem; display: flex; flex-direction: column; justify-content: flex-end; position: relative;">
+            <div class="glass-light" style="padding: 1.5rem; border-radius: var(--radius-lg);">
+              <p class="feature-text"><span class="text-bold" style="color: #373534;">Light Glass.</span> <span class="text-muted" style="color: #666;">Over photography for readable overlays.</span></p>
+              <button class="button button-primary button-sm" style="margin-top: 0.75rem;">Shop Now</button>
+            </div>
+          </div>
+
+          <div style="height: 300px; background: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400') center/cover; border-radius: var(--radius-xl); padding: 2rem; display: flex; flex-direction: column; justify-content: flex-end; position: relative;">
+            <div class="glass-dark" style="padding: 1.5rem; border-radius: var(--radius-lg);">
+              <p class="feature-text"><span class="text-bold" style="color: #f7f1e9;">Dark Glass.</span> <span class="text-muted" style="color: rgba(247,241,233,0.7);">For dark overlay buttons and text.</span></p>
+              <button class="button button-glass button-sm" style="margin-top: 0.75rem;">Learn More</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block" style="margin-top: 2rem;">
+<pre>.glass {
+  background: hsl(var(--color-surface-overlay) / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--color-border) / 0.5);
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motion Section -->
+    <section id="motion" class="section">
+      <div class="container">
+        <p class="section-title">Web</p>
+        <h2 class="section-heading">Motion & Animation</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Purposeful motion.</span> <span class="text-muted">Animation that enhances user experience and guides attention without overwhelming the interface.</span></p>
+
+        <div class="animation-showcase">
+          <div class="animation-card">
+            <div class="animation-preview">
+              <div class="anim-box" id="fade-box"></div>
+            </div>
+            <p class="feature-text" style="margin-bottom: 1rem;"><span class="text-bold">Fade In.</span> <span class="text-muted">Elements gently appear with opacity transition. Subtle and elegant.</span></p>
+            <button class="button button-secondary button-sm" onclick="playFadeAnimation()">Play</button>
+          </div>
+
+          <div class="animation-card">
+            <div class="animation-preview">
+              <div class="anim-box" id="slide-box"></div>
+            </div>
+            <p class="feature-text" style="margin-bottom: 1rem;"><span class="text-bold">Slide Up.</span> <span class="text-muted">Content slides in from below with easing. Creates natural flow.</span></p>
+            <button class="button button-secondary button-sm" onclick="playSlideAnimation()">Play</button>
+          </div>
+
+          <div class="animation-card">
+            <div class="animation-preview">
+              <div class="anim-box" id="scale-box"></div>
+            </div>
+            <p class="feature-text" style="margin-bottom: 1rem;"><span class="text-bold">Scale In.</span> <span class="text-muted">Elements grow from slightly smaller with spring easing. Playful and engaging.</span></p>
+            <button class="button button-secondary button-sm" onclick="playScaleAnimation()">Play</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hover Effects Section -->
+    <section id="hover" class="section">
+      <div class="container">
+        <p class="section-title">Web</p>
+        <h2 class="section-heading">Hover Effects</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Responsive feedback.</span> <span class="text-muted">Interactive hover states that feel responsive and premium without overwhelming the interface.</span></p>
+
+        <div class="hover-demo-grid">
+          <div class="hover-demo-item">
+            <div class="hover-box hover-lift"></div>
+            <span class="hover-label">Lift</span>
+          </div>
+          <div class="hover-demo-item">
+            <div class="hover-box hover-scale"></div>
+            <span class="hover-label">Scale</span>
+          </div>
+          <div class="hover-demo-item">
+            <div class="hover-box hover-glow"></div>
+            <span class="hover-label">Glow</span>
+          </div>
+          <div class="hover-demo-item">
+            <div class="hover-box hover-rotate"></div>
+            <span class="hover-label">Rotate</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modals Section -->
+    <section id="modals" class="section">
+      <div class="container">
+        <p class="section-title">Web</p>
+        <h2 class="section-heading">Modal Popups</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Focused interactions.</span> <span class="text-muted">Overlay patterns that draw attention to important actions without leaving context.</span></p>
+
+        <div class="grid grid-4">
+          <button class="button button-secondary" onclick="openModal('confirm')">Confirm Modal</button>
+          <button class="button button-secondary" onclick="openModal('info')">Info Modal</button>
+          <button class="button button-secondary" onclick="openModal('form')">Form Modal</button>
+          <button class="button button-secondary" onclick="openModal('success')">Success Modal</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components Section -->
+    <section id="components" class="section">
+      <div class="container">
+        <p class="section-title">Web</p>
+        <h2 class="section-heading">Components</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Building blocks.</span> <span class="text-muted">Reusable UI components that ensure consistency across all digital touchpoints.</span></p>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-bottom: 1.5rem;"><span class="text-bold">Buttons</span></p>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem;">
+          <button class="button button-primary">Primary</button>
+          <button class="button button-secondary">Secondary (Outline)</button>
+          <button class="button button-ghost">Ghost</button>
+          <button class="button button-primary button-sm">Small</button>
+          <button class="button button-primary button-lg">Large</button>
+        </div>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-bottom: 1.5rem;"><span class="text-bold">Surfaces</span></p>
+        <div class="grid grid-3" style="margin-bottom: 3rem;">
+          <div class="surface-flat" style="padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <span class="hover-label">Flat</span>
+          </div>
+          <div class="surface-raised" style="padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <span class="hover-label">Raised</span>
+          </div>
+          <div class="surface-elevated" style="padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <span class="hover-label">Elevated</span>
+          </div>
+        </div>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-bottom: 1.5rem;"><span class="text-bold">Cards with Glass Buttons</span></p>
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-image" style="height: 200px;">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" alt="Card Image">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">View Details</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <h4 style="margin-bottom: 0.5rem;">Product Card</h4>
+              <p style="font-size: var(--text-sm); color: hsl(var(--color-muted-foreground));">Glass button appears on hover</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image" style="height: 200px;">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Card Image">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Quick View</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <h4 style="margin-bottom: 0.5rem;">Collection Item</h4>
+              <p style="font-size: var(--text-sm); color: hsl(var(--color-muted-foreground));">Hover to reveal actions</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-image" style="height: 200px;">
+              <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400" alt="Card Image">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Explore</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <h4 style="margin-bottom: 0.5rem;">Feature Card</h4>
+              <p style="font-size: var(--text-sm); color: hsl(var(--color-muted-foreground));">Glassmorphism overlay</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal Scroll Section -->
+    <section id="horizontal-scroll" class="section">
+      <div class="container">
+        <p class="section-title">Web</p>
+        <h2 class="section-heading">Horizontal Scroll</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Fluid browsing.</span> <span class="text-muted">Horizontal scroll carousels showcase collections and galleries with smooth snap-scrolling and touch-friendly navigation.</span></p>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-bottom: 1.5rem;"><span class="text-bold">Image Carousel</span></p>
+
+        <div class="scroll-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          Scroll horizontally to see more
+        </div>
+
+        <div class="horizontal-scroll">
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800', 'Modern Outdoor Space')">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400" alt="Outdoor Space">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Modern Living</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', 'Cozy Setup')">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Cozy Setup">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Cozy Comfort</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800', 'Peaceful Morning')">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400" alt="Peaceful">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Peaceful Moments</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=800', 'Evening Glow')">
+            <img src="https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=400" alt="Evening">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Golden Hour</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800', 'Architectural Design')">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400" alt="Architecture">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Design Focus</span>
+            </div>
+          </div>
+          <div class="carousel-item" onclick="openImageModal('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800', 'Luxury Exterior')">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400" alt="Luxury">
+            <div class="carousel-item-overlay">
+              <span class="carousel-item-title">Luxury Living</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="feature-text" style="font-size: var(--text-xl); margin-top: 3rem; margin-bottom: 1.5rem;"><span class="text-bold">Product Cards Carousel</span></p>
+
+        <div class="scroll-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          Scroll horizontally
+        </div>
+
+        <div class="horizontal-scroll">
+          <div class="card" style="width: 280px; flex-shrink: 0;">
+            <div class="card-image" style="height: 180px;">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400" alt="Sofa">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Quick View</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <p class="feature-text"><span class="text-bold">Heated Sofa.</span> <span class="text-muted">Three-seat comfort with integrated heating.</span></p>
+              <p style="font-size: var(--text-lg); font-weight: 600; color: hsl(var(--color-primary)); margin-top: 0.75rem;">$2,499</p>
+            </div>
+          </div>
+          <div class="card" style="width: 280px; flex-shrink: 0;">
+            <div class="card-image" style="height: 180px;">
+              <img src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400" alt="Lounge">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Quick View</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <p class="feature-text"><span class="text-bold">Lounge Chair.</span> <span class="text-muted">Relaxation redefined with warmth.</span></p>
+              <p style="font-size: var(--text-lg); font-weight: 600; color: hsl(var(--color-primary)); margin-top: 0.75rem;">$1,299</p>
+            </div>
+          </div>
+          <div class="card" style="width: 280px; flex-shrink: 0;">
+            <div class="card-image" style="height: 180px;">
+              <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400" alt="Bench">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Quick View</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <p class="feature-text"><span class="text-bold">Heated Bench.</span> <span class="text-muted">Perfect for patios and gardens.</span></p>
+              <p style="font-size: var(--text-lg); font-weight: 600; color: hsl(var(--color-primary)); margin-top: 0.75rem;">$899</p>
+            </div>
+          </div>
+          <div class="card" style="width: 280px; flex-shrink: 0;">
+            <div class="card-image" style="height: 180px;">
+              <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400" alt="Ottoman">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Quick View</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <p class="feature-text"><span class="text-bold">Heated Ottoman.</span> <span class="text-muted">Warm your feet in style.</span></p>
+              <p style="font-size: var(--text-lg); font-weight: 600; color: hsl(var(--color-primary)); margin-top: 0.75rem;">$449</p>
+            </div>
+          </div>
+          <div class="card" style="width: 280px; flex-shrink: 0;">
+            <div class="card-image" style="height: 180px;">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400" alt="Sectional">
+              <div class="card-image-overlay">
+                <button class="button button-glass button-sm">Quick View</button>
+              </div>
+            </div>
+            <div style="padding: 1.25rem;">
+              <p class="feature-text"><span class="text-bold">Sectional Set.</span> <span class="text-muted">Complete outdoor living room.</span></p>
+              <p style="font-size: var(--text-lg); font-weight: 600; color: hsl(var(--color-primary)); margin-top: 0.75rem;">$4,999</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-block" style="margin-top: 2.5rem;">
+<pre>.horizontal-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+
+.horizontal-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section id="templates" class="section">
+      <div class="container">
+        <p class="section-title">Resources</p>
+        <h2 class="section-heading">Templates</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Ready to use.</span> <span class="text-muted">Downloadable templates for consistent brand application across all touchpoints.</span></p>
+
+        <div class="template-grid">
+          <div class="template-card">
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                Letterhead
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name">Letterhead</div>
+              <p class="template-desc">Official company letterhead template</p>
+              <button class="button button-secondary button-sm">Download</button>
+            </div>
+          </div>
+          <div class="template-card">
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="7" x2="22" y2="7"/></svg>
+                Business Card
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name">Business Card</div>
+              <p class="template-desc">Standard business card layout</p>
+              <button class="button button-secondary button-sm">Download</button>
+            </div>
+          </div>
+          <div class="template-card">
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M16 2v4a2 2 0 0 0 2 2h4"/></svg>
+                Presentation
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name">Presentation</div>
+              <p class="template-desc">PowerPoint/Keynote template</p>
+              <button class="button button-secondary button-sm">Download</button>
+            </div>
+          </div>
+          <div class="template-card">
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Social Media
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name">Social Media Kit</div>
+              <p class="template-desc">Templates for all platforms</p>
+              <button class="button button-secondary button-sm">Download</button>
+            </div>
+          </div>
+          <div class="template-card">
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email Signature
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name">Email Signature</div>
+              <p class="template-desc">HTML email signature</p>
+              <button class="button button-secondary button-sm">Download</button>
+            </div>
+          </div>
+          <div class="template-card">
+            <div class="template-preview">
+              <div class="template-preview-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Invoice
+              </div>
+            </div>
+            <div class="template-info">
+              <div class="template-name">Invoice</div>
+              <p class="template-desc">Branded invoice template</p>
+              <button class="button button-secondary button-sm">Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="downloads" class="section">
+      <div class="container">
+        <p class="section-title">Resources</p>
+        <h2 class="section-heading">Downloads</h2>
+        <p class="feature-text" style="margin-bottom: 2.5rem;"><span class="text-bold">Everything you need.</span> <span class="text-muted">Complete brand assets and guidelines in multiple formats for your workflow.</span></p>
+
+        <div class="feature-grid">
+          <div class="feature-card surface-raised" style="padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1.5rem; color: hsl(var(--color-primary));"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <p class="feature-text" style="margin-bottom: 1.25rem;"><span class="text-bold">Logo Package.</span> <span class="text-muted">All logo formats including SVG, PNG, and PDF.</span></p>
+            <button class="button button-secondary button-sm">Download ZIP</button>
+          </div>
+          <div class="feature-card surface-raised" style="padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1.5rem; color: hsl(var(--color-primary));"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"/></svg>
+            <p class="feature-text" style="margin-bottom: 1.25rem;"><span class="text-bold">Color Swatches.</span> <span class="text-muted">ASE, CSS, and Figma swatches ready to import.</span></p>
+            <button class="button button-secondary button-sm">Download ZIP</button>
+          </div>
+          <div class="feature-card surface-raised" style="padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1.5rem; color: hsl(var(--color-primary));"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <p class="feature-text" style="margin-bottom: 1.25rem;"><span class="text-bold">Brand Guidelines PDF.</span> <span class="text-muted">Complete documentation for reference.</span></p>
+            <button class="button button-primary button-sm" onclick="exportPDF()">Export PDF</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer no-print">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Logos/outmore logo.svg" alt="Outmore Living" class="footer-logo footer-logo-light">
+          <img src="Logos/Outmore Living Logo White.svg" alt="Outmore Living" class="footer-logo footer-logo-dark">
+          <p class="footer-tagline">Creating heated outdoor furniture that extends life beyond four walls. Comfort shouldn't end at the door.</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Brand</h4>
+          <ul class="footer-links">
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#voice">Brand Voice</a></li>
+            <li><a href="#messaging">Messaging</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Visual Identity</h4>
+          <ul class="footer-links">
+            <li><a href="#logos">Logos</a></li>
+            <li><a href="#colors">Colors</a></li>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#iconography">Iconography</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Web</h4>
+          <ul class="footer-links">
+            <li><a href="#motion">Motion</a></li>
+            <li><a href="#components">Components</a></li>
+            <li><a href="#horizontal-scroll">Horizontal Scroll</a></li>
+            <li><a href="#glassmorphism">Glassmorphism</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#templates">Templates</a></li>
+            <li><a href="#downloads">Downloads</a></li>
+            <li><a href="#photography">Photography</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2025 Outmore Living. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/outmoreliving" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://facebook.com/outmoreliving" target="_blank" rel="noopener" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://pinterest.com/outmoreliving" target="_blank" rel="noopener" title="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12c0-2.5 2-4.5 4.5-4.5S17 9.5 17 12c0 2.5-2 4-4 4-1 0-2-.5-2-2v-4"/><path d="M9 19l1-5"/></svg>
+          </a>
+          <a href="https://outmoreliving.com" target="_blank" rel="noopener" title="Website">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Search Overlay -->
+  <div id="search-overlay" class="search-overlay" onclick="closeSearch()"></div>
+  <div id="search-modal" class="search-modal">
+    <div class="search-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" class="search-input" placeholder="Search brand guide..." autocomplete="off">
+      <button class="search-close" onclick="closeSearch()">ESC</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+    <div class="search-footer">
+      <div class="search-footer-shortcuts">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Select</span>
+        <span><kbd>ESC</kbd> Close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Copied to clipboard</div>
+
+  <!-- Modal Overlay -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-content" onclick="event.stopPropagation()">
+      <!-- Modal content injected by JS -->
+    </div>
+  </div>
+
+  <!-- Image Modal Overlay -->
+  <div id="image-modal-overlay" class="modal-overlay" onclick="closeImageModal()">
+    <div class="image-modal" onclick="event.stopPropagation()">
+      <img id="image-modal-img" src="" alt="">
+      <p id="image-modal-caption" class="image-modal-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    // Mobile Menu
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+
+    function openMobileMenu() {
+      mobileMenu.classList.add('active');
+      mobileMenuOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+
+    // Close mobile menu on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Theme Switching
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    const themeIndicator = document.getElementById('theme-indicator');
+    const currentThemeName = document.getElementById('current-theme-name');
+    const themeNames = { light: 'Light Theme', beige: 'Beige Theme', white: 'White Theme', dark: 'Dark Theme' };
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('outmore-theme', theme);
+      themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
+      if (themeIndicator) themeIndicator.textContent = themeNames[theme];
+      if (currentThemeName) currentThemeName.textContent = themeNames[theme];
+    }
+
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', () => setTheme(btn.dataset.theme));
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('outmore-theme') || 'light';
+    setTheme(savedTheme);
+
+    // Copy to Clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Copied: ${text}`);
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Modals
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalContent = document.getElementById('modal-content');
+
+    const modalTemplates = {
+      confirm: `
+        <div class="modal-header">
+          <h3 class="modal-title">Confirm Action</h3>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to proceed with this action? This cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="button button-secondary" onclick="closeModal()">Cancel</button>
+          <button class="button button-primary" onclick="closeModal()">Confirm</button>
+        </div>
+      `,
+      info: `
+        <div class="modal-header">
+          <h3 class="modal-title">Information</h3>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <p>This is an informational modal. It displays helpful content and context to the user without requiring any specific action.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="button button-primary" onclick="closeModal()">Got it</button>
+        </div>
+      `,
+      form: `
+        <div class="modal-header">
+          <h3 class="modal-title">Subscribe</h3>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <p style="margin-bottom: 1rem;">Get updates on new products and exclusive offers.</p>
+          <input type="email" placeholder="Enter your email" style="width: 100%; padding: 0.875rem 1rem; border: 1px solid hsl(var(--color-border)); border-radius: var(--radius-md); font-family: var(--font-body); font-size: var(--text-base); background: hsl(var(--color-background));">
+        </div>
+        <div class="modal-footer">
+          <button class="button button-secondary" onclick="closeModal()">Cancel</button>
+          <button class="button button-primary" onclick="closeModal()">Subscribe</button>
+        </div>
+      `,
+      success: `
+        <div class="modal-header">
+          <h3 class="modal-title">Success!</h3>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body" style="text-align: center; padding: 2rem;">
+          <div style="width: 64px; height: 64px; background: hsl(var(--color-primary) / 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-primary))" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Your action was completed successfully.</p>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+          <button class="button button-primary" onclick="closeModal()">Done</button>
+        </div>
+      `
+    };
+
+    function openModal(type) {
+      modalContent.innerHTML = modalTemplates[type];
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e && e.target !== modalOverlay) return;
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Image Modal
+    const imageModalOverlay = document.getElementById('image-modal-overlay');
+    const imageModalImg = document.getElementById('image-modal-img');
+    const imageModalCaption = document.getElementById('image-modal-caption');
+
+    function openImageModal(src, caption) {
+      imageModalImg.src = src;
+      imageModalCaption.textContent = caption || '';
+      imageModalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      imageModalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close modals with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeImageModal();
+      }
+    });
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Scroll-triggered animations
+    gsap.utils.toArray('.section').forEach(section => {
+      gsap.from(section.querySelectorAll('.section-title, .section-heading, .section-description'), {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out'
+      });
+    });
+
+    // Animation demos
+    function playFadeAnimation() {
+      const box = document.getElementById('fade-box');
+      gsap.fromTo(box, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' });
+    }
+
+    function playSlideAnimation() {
+      const box = document.getElementById('slide-box');
+      gsap.fromTo(box, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' });
+    }
+
+    function playScaleAnimation() {
+      const box = document.getElementById('scale-box');
+      gsap.fromTo(box, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.7)' });
+    }
+
+    // PDF Export
+    function exportPDF() {
+      showToast('Generating PDF...');
+
+      const element = document.getElementById('main-content');
+      const opt = {
+        margin: [0.5, 0.5],
+        filename: 'Outmore-Living-Brand-Guidelines.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        showToast('PDF downloaded successfully!');
+      }).catch(() => {
+        showToast('Error generating PDF');
+      });
+    }
+
+    // Search Functionality
+    const searchData = [
+      { category: 'Brand', title: 'Mission', description: 'Our purpose and the promise we make to our customers. Be Outmore.', href: '#mission' },
+      { category: 'Brand', title: 'Brand Voice', description: 'Warm, confident, refined, and clear communication style.', href: '#voice' },
+      { category: 'Brand', title: 'Messaging', description: 'Headlines, subheadlines, and calls to action.', href: '#messaging' },
+      { category: 'Visual Identity', title: 'Logos', description: 'Logo assets and usage guidelines for light and dark backgrounds.', href: '#logos' },
+      { category: 'Visual Identity', title: 'Colors', description: 'Brand colors: Jet, Linen, Hot Embers, Mist. Heated glow gradient.', href: '#colors' },
+      { category: 'Visual Identity', title: 'Typography', description: 'Poppins for display, DM Sans for body, Cormorant Garamond for accent.', href: '#typography' },
+      { category: 'Visual Identity', title: 'Iconography', description: 'Outlined icons with 1.5-2px stroke weight. Consistent and clear.', href: '#iconography' },
+      { category: 'Photography', title: 'Photo Guidelines', description: 'Lighting, composition, and color grading for brand photography.', href: '#photography' },
+      { category: 'Photography', title: 'Thermal Imaging', description: 'Heat visualization that showcases our heated technology.', href: '#thermal' },
+      { category: 'Web', title: 'Glassmorphism', description: 'Frosted glass effects with backdrop blur for modern interfaces.', href: '#glassmorphism' },
+      { category: 'Web', title: 'Motion & Animation', description: 'Fade, slide, and scale animations with purposeful motion.', href: '#motion' },
+      { category: 'Web', title: 'Hover Effects', description: 'Lift, scale, glow, and rotate hover interactions.', href: '#hover' },
+      { category: 'Web', title: 'Modals', description: 'Confirm, info, form, and success modal patterns.', href: '#modals' },
+      { category: 'Web', title: 'Components', description: 'Buttons, surfaces, and cards with glass overlays.', href: '#components' },
+      { category: 'Web', title: 'Horizontal Scroll', description: 'Image carousels and product cards with snap scrolling.', href: '#horizontal-scroll' },
+      { category: 'Resources', title: 'Templates', description: 'Letterhead, business cards, presentations, social media kit.', href: '#templates' },
+      { category: 'Resources', title: 'Downloads', description: 'Logo package, color swatches, brand guidelines PDF.', href: '#downloads' },
+      { category: 'Colors', title: 'Jet', description: 'Primary dark color #373534 for text and dark surfaces.', href: '#colors' },
+      { category: 'Colors', title: 'Linen', description: 'Warm background color #f7f1e9 for beige theme.', href: '#colors' },
+      { category: 'Colors', title: 'Hot Embers', description: 'Accent color #F25431 for CTAs and highlights.', href: '#colors' },
+      { category: 'Colors', title: 'Mist', description: 'Flat surface background color #efefed.', href: '#colors' },
+      { category: 'Fonts', title: 'Poppins', description: 'Display font for headlines, hero text, and navigation.', href: '#typography' },
+      { category: 'Fonts', title: 'DM Sans', description: 'Body font for copy, UI text, and labels.', href: '#typography' },
+      { category: 'Fonts', title: 'Cormorant Garamond', description: 'Accent serif font for editorial and decorative text.', href: '#typography' },
+      { category: 'Themes', title: 'Light Theme', description: 'Default warm off-white background #fcf9f5.', href: '#colors' },
+      { category: 'Themes', title: 'Beige Theme', description: 'Warm linen background #f7f1e9.', href: '#colors' },
+      { category: 'Themes', title: 'White Theme', description: 'Pure white background #ffffff.', href: '#colors' },
+      { category: 'Themes', title: 'Dark Theme', description: 'Jet background #373534 with inverted colors.', href: '#colors' },
+    ];
+
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchModal = document.getElementById('search-modal');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    let activeResultIndex = -1;
+
+    function openSearch() {
+      searchOverlay.classList.add('active');
+      searchModal.classList.add('active');
+      searchInput.focus();
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+      activeResultIndex = -1;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSearch() {
+      searchOverlay.classList.remove('active');
+      searchModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function performSearch(query) {
+      if (!query.trim()) {
+        searchResults.innerHTML = '';
+        return;
+      }
+
+      const lowerQuery = query.toLowerCase();
+      const results = searchData.filter(item =>
+        item.title.toLowerCase().includes(lowerQuery) ||
+        item.description.toLowerCase().includes(lowerQuery) ||
+        item.category.toLowerCase().includes(lowerQuery)
+      );
+
+      if (results.length === 0) {
+        searchResults.innerHTML = '<div class="search-no-results">No results found for "' + query + '"</div>';
+        return;
+      }
+
+      searchResults.innerHTML = results.map((item, index) => `
+        <a href="${item.href}" class="search-result" data-index="${index}" onclick="closeSearch()">
+          <div class="search-result-category">${item.category}</div>
+          <div class="search-result-title">${highlightMatch(item.title, query)}</div>
+          <div class="search-result-description">${highlightMatch(item.description, query)}</div>
+        </a>
+      `).join('');
+
+      activeResultIndex = -1;
+    }
+
+    function highlightMatch(text, query) {
+      if (!query.trim()) return text;
+      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      return text.replace(regex, '<strong>$1</strong>');
+    }
+
+    function navigateResults(direction) {
+      const results = searchResults.querySelectorAll('.search-result');
+      if (results.length === 0) return;
+
+      if (activeResultIndex >= 0) {
+        results[activeResultIndex].classList.remove('active');
+      }
+
+      activeResultIndex += direction;
+      if (activeResultIndex < 0) activeResultIndex = results.length - 1;
+      if (activeResultIndex >= results.length) activeResultIndex = 0;
+
+      results[activeResultIndex].classList.add('active');
+      results[activeResultIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    function selectActiveResult() {
+      const results = searchResults.querySelectorAll('.search-result');
+      if (activeResultIndex >= 0 && results[activeResultIndex]) {
+        results[activeResultIndex].click();
+      }
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      performSearch(e.target.value);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        navigateResults(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateResults(-1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        selectActiveResult();
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Cmd/Ctrl + K to open search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+      // Escape to close search
+      if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+        closeSearch();
+      }
+    });
+  </script>
+</body>
+</html>
