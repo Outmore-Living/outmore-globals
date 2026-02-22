@@ -37,6 +37,47 @@
   --color-brand-mist: 0 0% 94%;           /* #efefed */
 
   /* ----------------------------------------
+     Brand Tints & Shades — 10-step scales
+     ---------------------------------------- */
+
+  /* Jet scale */
+  --color-jet-50: #dfdedd;
+  --color-jet-100: #c7c5c4;
+  --color-jet-200: #afadac;
+  --color-jet-300: #979594;
+  --color-jet-400: #7f7d7b;
+  --color-jet-500: #676563;
+  --color-jet-600: #4f4d4b;
+  --color-jet-700: #373534;  /* = brand-jet */
+  --color-jet-800: #252423;
+  --color-jet-900: #1a1918;
+  --color-jet-950: #121111;
+
+  /* Hot Embers scale */
+  --color-embers-50: #fef0e5;
+  --color-embers-100: #fce0cb;
+  --color-embers-200: #fac4ac;
+  --color-embers-300: #f8a88d;
+  --color-embers-400: #f68c6e;
+  --color-embers-500: #f4704f;
+  --color-embers-600: #F25431;  /* = brand-hot-embers */
+  --color-embers-700: #c73e24;
+  --color-embers-800: #a12918;
+  --color-embers-900: #7a1a0e;
+
+  /* Linen scale */
+  --color-linen-50: #fdfcfa;
+  --color-linen-100: #fcfaf7;
+  --color-linen-200: #fbf8f4;
+  --color-linen-300: #faf6f1;
+  --color-linen-400: #f9f4ed;
+  --color-linen-500: #f7f1e9;  /* = brand-linen */
+  --color-linen-600: #efe7dc;
+  --color-linen-700: #e6ddd0;
+  --color-linen-800: #ddd3c4;
+  --color-linen-900: #d4c9b8;
+
+  /* ----------------------------------------
      Heated Glow Gradients
      ---------------------------------------- */
   --gradient-heated-glow: linear-gradient(135deg, #F25431 0%, #FF8A5C 50%, #FFB347 100%);
@@ -80,6 +121,12 @@
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ----------------------------------------
+     Editorial Type Scale
+     ---------------------------------------- */
+  --text-8xl: 6rem;      /* 96px — hero display */
+  --text-9xl: 7rem;      /* 112px — editorial hero */
 }
 
 /* ============================================
@@ -409,4 +456,88 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-heated-glow {
   background: var(--gradient-heated-glow);
+}
+
+/* ============================================
+   GLASSMORPHISM SURFACES
+   ============================================ */
+
+/* Light glass — use on warm/light backgrounds */
+.surface-glass {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 40px rgba(55, 53, 52, 0.06);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+}
+
+/* Dark glass — use on dark/jet backgrounds */
+.surface-glass-dark {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+}
+
+/* Inner glow line — add to glass surfaces for top-edge highlight */
+.glass-glow-line {
+  position: relative;
+}
+
+.glass-glow-line::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+}
+
+.surface-glass-dark .glass-glow-line::before,
+[data-theme="dark"] .glass-glow-line::before,
+.dark .glass-glow-line::before {
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* ============================================
+   GRAIN TEXTURE OVERLAY
+   ============================================ */
+
+.grain-overlay {
+  position: relative;
+}
+
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   AMBIENT & EFFECT KEYFRAMES
+   ============================================ */
+
+/* Floating drift for ambient background orbs */
+@keyframes ambient-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, 15px) scale(1.05); }
+  66% { transform: translate(20px, -10px) scale(0.95); }
+}
+
+/* Concentric ring pulse for heat visualization */
+@keyframes ring-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.03); }
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(6px); opacity: 0.7; }
 }

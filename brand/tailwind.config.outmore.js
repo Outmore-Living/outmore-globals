@@ -44,6 +44,48 @@ module.exports = {
           mist: 'hsl(0 0% 94%)',
         },
 
+        // Tint & Shade Scales
+        jet: {
+          50: '#dfdedd',
+          100: '#c7c5c4',
+          200: '#afadac',
+          300: '#979594',
+          400: '#7f7d7b',
+          500: '#676563',
+          600: '#4f4d4b',
+          700: '#373534',
+          800: '#252423',
+          900: '#1a1918',
+          950: '#121111',
+          DEFAULT: 'hsl(30 3% 21%)',
+        },
+        embers: {
+          50: '#fef0e5',
+          100: '#fce0cb',
+          200: '#fac4ac',
+          300: '#f8a88d',
+          400: '#f68c6e',
+          500: '#f4704f',
+          600: '#F25431',
+          700: '#c73e24',
+          800: '#a12918',
+          900: '#7a1a0e',
+          DEFAULT: 'hsl(11 88% 57%)',
+        },
+        linen: {
+          50: '#fdfcfa',
+          100: '#fcfaf7',
+          200: '#fbf8f4',
+          300: '#faf6f1',
+          400: '#f9f4ed',
+          500: '#f7f1e9',
+          600: '#efe7dc',
+          700: '#e6ddd0',
+          800: '#ddd3c4',
+          900: '#d4c9b8',
+          DEFAULT: 'hsl(36 41% 94%)',
+        },
+
         // Semantic Colors (CSS Variable Based)
         background: 'hsl(var(--color-background) / <alpha-value>)',
         foreground: 'hsl(var(--color-foreground) / <alpha-value>)',
@@ -111,6 +153,8 @@ module.exports = {
         '5xl': ['3rem', { lineHeight: '1.1' }],
         '6xl': ['3.75rem', { lineHeight: '1.1' }],
         '7xl': ['4.5rem', { lineHeight: '1' }],
+        '8xl': ['6rem', { lineHeight: '1' }],
+        '9xl': ['7rem', { lineHeight: '1' }],
       },
 
       fontWeight: {
@@ -218,6 +262,19 @@ module.exports = {
           '0%': { transform: 'scale(1)', opacity: '1' },
           '100%': { transform: 'scale(0.95)', opacity: '0' },
         },
+        'ambient-float': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '33%': { transform: 'translate(-20px, 15px) scale(1.05)' },
+          '66%': { transform: 'translate(20px, -10px) scale(0.95)' },
+        },
+        'ring-pulse': {
+          '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+          '50%': { opacity: '0.6', transform: 'scale(1.03)' },
+        },
+        'scroll-cue': {
+          '0%, 100%': { transform: 'translateY(0)', opacity: '0.4' },
+          '50%': { transform: 'translateY(6px)', opacity: '0.7' },
+        },
       },
 
       animation: {
@@ -229,6 +286,9 @@ module.exports = {
         'slide-in-from-right': 'slide-in-from-right 200ms ease-out',
         'scale-in': 'scale-in 200ms ease-out',
         'scale-out': 'scale-out 150ms ease-in',
+        'ambient-float': 'ambient-float 10s ease-in-out infinite',
+        'ring-pulse': 'ring-pulse 3s ease-in-out infinite',
+        'scroll-cue': 'scroll-cue 2s ease-in-out infinite',
       },
 
       // ============================================
@@ -257,6 +317,11 @@ module.exports = {
       backgroundImage: {
         'heated-glow': 'linear-gradient(135deg, #F25431 0%, #FF8A5C 50%, #FFB347 100%)',
         'heated-radial': 'radial-gradient(circle, #F25431 0%, #FF8A5C 40%, transparent 70%)',
+      },
+
+      backdropBlur: {
+        glass: '24px',
+        'glass-heavy': '40px',
       },
     },
   },
@@ -359,6 +424,40 @@ module.exports = {
       addUtilities({
         '.heated-glow': {
           'box-shadow': '0 0 30px hsl(11 88% 57% / 0.3), 0 0 60px hsl(11 88% 57% / 0.2)',
+        },
+      });
+
+      // Glassmorphism surfaces
+      addUtilities({
+        '.surface-glass': {
+          'background': 'rgba(255, 255, 255, 0.4)',
+          'border': '1px solid rgba(255, 255, 255, 0.6)',
+          'box-shadow': '0 8px 40px rgba(55, 53, 52, 0.06)',
+          'backdrop-filter': 'blur(24px) saturate(1.5)',
+          '-webkit-backdrop-filter': 'blur(24px) saturate(1.5)',
+        },
+        '.surface-glass-dark': {
+          'background': 'rgba(255, 255, 255, 0.04)',
+          'border': '1px solid rgba(255, 255, 255, 0.08)',
+          'box-shadow': '0 8px 40px rgba(0, 0, 0, 0.4)',
+          'backdrop-filter': 'blur(24px) saturate(1.5)',
+          '-webkit-backdrop-filter': 'blur(24px) saturate(1.5)',
+        },
+      });
+
+      // Grain texture overlay
+      addUtilities({
+        '.grain-overlay': {
+          'position': 'relative',
+          '&::after': {
+            'content': "''",
+            'position': 'absolute',
+            'inset': '0',
+            'opacity': '0.03',
+            'background-image': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+            'pointer-events': 'none',
+            'z-index': '1',
+          },
         },
       });
     },

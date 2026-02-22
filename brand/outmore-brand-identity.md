@@ -129,6 +129,65 @@ Outmore Living creates heated outdoor furniture that extends life beyond four wa
 }
 ```
 
+### Tints & Shades
+
+Full 10-step scales for each brand primary. Use the inner steps for subtle backgrounds, mid-range for borders and muted text, and the dark end for deep surfaces.
+
+#### Jet Scale
+
+| Step | Hex | Usage |
+|------|-----|-------|
+| `jet-50` | `#dfdedd` | Lightest tint — subtle borders on light themes |
+| `jet-100` | `#c7c5c4` | Muted backgrounds, dividers |
+| `jet-200` | `#afadac` | Disabled text, placeholder |
+| `jet-300` | `#979594` | Secondary text |
+| `jet-400` | `#7f7d7b` | Muted foreground |
+| `jet-500` | `#676563` | Mid-tone text |
+| `jet-600` | `#4f4d4b` | Strong secondary text |
+| `jet-700` | `#373534` | **Brand Jet** (primary text) |
+| `jet-800` | `#252423` | Deep dark surface |
+| `jet-900` | `#1a1918` | Deepest dark background |
+| `jet-950` | `#121111` | Near-black |
+
+#### Hot Embers Scale
+
+| Step | Hex | Usage |
+|------|-----|-------|
+| `embers-50` | `#fef0e5` | Lightest tint — subtle warm highlight |
+| `embers-100` | `#fce0cb` | Warm background accent |
+| `embers-200` | `#fac4ac` | Light accent |
+| `embers-300` | `#f8a88d` | Soft warm glow |
+| `embers-400` | `#f68c6e` | Medium warm |
+| `embers-500` | `#f4704f` | Active warm |
+| `embers-600` | `#F25431` | **Brand Hot Embers** (accent) |
+| `embers-700` | `#c73e24` | Dark accent — hover |
+| `embers-800` | `#a12918` | Deep accent |
+| `embers-900` | `#7a1a0e` | Darkest accent |
+
+#### Linen Scale
+
+| Step | Hex | Usage |
+|------|-----|-------|
+| `linen-50` | `#fdfcfa` | Near-white warm |
+| `linen-100` | `#fcfaf7` | Lightest warm background |
+| `linen-200` | `#fbf8f4` | Light warm surface |
+| `linen-300` | `#faf6f1` | Warm card background |
+| `linen-400` | `#f9f4ed` | Warm raised surface |
+| `linen-500` | `#f7f1e9` | **Brand Linen** (beige theme) |
+| `linen-600` | `#efe7dc` | Warm muted |
+| `linen-700` | `#e6ddd0` | Warm border |
+| `linen-800` | `#ddd3c4` | Warm divider |
+| `linen-900` | `#d4c9b8` | Deepest warm tone |
+
+#### Warmth Gradient Flow
+
+The Jet scale maps to the "Warmth Gradient" pattern — pages that transition from light to dark, representing "evening falls":
+
+```
+linen-500 → linen-900 → jet-50 → jet-500 → jet-700 → jet-900
+#f7f1e9  →  #d4c9b8  → #dfdedd → #676563 → #373534 → #1a1918
+```
+
 ### Contrast Guidance
 
 | Combination | Ratio | Status |
@@ -200,6 +259,20 @@ h1, h2, h3, h4, h5, h6 {
 | `text-4xl` | 2.25rem (36px) | 1.2 | Hero headlines |
 | `text-5xl` | 3rem (48px) | 1.1 | Display headlines |
 | `text-6xl` | 3.75rem (60px) | 1.1 | Large display |
+| `text-7xl` | 4.5rem (72px) | 1.0 | Hero display |
+| `text-8xl` | 6rem (96px) | 1.0 | Editorial hero |
+| `text-9xl` | 7rem (112px) | 1.0 | Full-viewport editorial |
+
+### Editorial Headlines
+
+For large editorial/hero treatments, use Cormorant Garamond at `font-light italic`:
+
+```js
+// Full-viewport editorial headline
+"font-accent text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light italic leading-[1.05] tracking-[-0.02em]"
+```
+
+This creates the high-impact typographic moments used in hero sections and transitional content.
 
 ### Typography Rules
 
@@ -589,7 +662,120 @@ The signature "heated glow" represents warmth from our heated furniture products
 
 ---
 
-## 12. Brand Voice
+## 12. Glassmorphism Surfaces
+
+Translucent surfaces that float over warm ambient light, creating depth without weight.
+
+### Light Glass
+
+Use on warm/light backgrounds (Light, Beige, or Linen themes):
+
+```css
+.surface-glass {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 40px rgba(55, 53, 52, 0.06);
+  backdrop-filter: blur(24px) saturate(1.5);
+}
+```
+
+Tailwind: `bg-white/40 border border-white/60 backdrop-blur-glass backdrop-saturate-150 shadow-[0_8px_40px_rgba(55,53,52,0.06)] rounded-2xl`
+
+### Dark Glass
+
+Use on dark/jet backgrounds (Dark theme):
+
+```css
+.surface-glass-dark {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(24px) saturate(1.5);
+}
+```
+
+Tailwind: `bg-white/[0.04] border border-white/[0.08] backdrop-blur-glass backdrop-saturate-150 shadow-[0_8px_40px_rgba(0,0,0,0.4)] rounded-2xl`
+
+### Inner Glow Line
+
+Add a subtle highlight at the top edge of glass surfaces for extra depth:
+
+```html
+<div class="surface-glass rounded-2xl">
+  <div class="glass-glow-line" />
+  <!-- content -->
+</div>
+```
+
+The glow line renders as a horizontal gradient from transparent → white/80 → transparent on light glass, and transparent → white/10 → transparent on dark glass.
+
+### When to Use
+
+- Feature cards floating over ambient backgrounds
+- Overlays and modals
+- Navigation bars over hero sections
+- Product highlight cards
+- Any surface that needs to "breathe" over a textured background
+
+---
+
+## 13. Ambient Depth & Texture
+
+### Ambient Orbs
+
+Large blurred circles positioned absolutely behind content to create atmospheric depth. Use GSAP's sine-wave animation for gentle floating motion.
+
+```jsx
+<div
+  className="pointer-events-none absolute rounded-full"
+  style={{
+    width: 500,
+    height: 500,
+    background: 'rgba(242, 84, 49, 0.12)',
+    filter: 'blur(140px)',
+    opacity: 0.5,
+  }}
+  aria-hidden="true"
+/>
+```
+
+- Light backgrounds: use `rgba(242,84,49,0.06-0.12)` (warm glow) or `rgba(247,241,233,0.8)` (linen wash)
+- Dark backgrounds: use `rgba(242,84,49,0.06-0.1)` (ember glow) or `rgba(55,53,52,0.8)` (shadow depth)
+- Always `aria-hidden="true"` and `pointer-events-none`
+
+### Grain Texture
+
+SVG feTurbulence overlay at 3% opacity for tactile quality. Adds analog warmth to digital surfaces.
+
+```css
+.grain-overlay::after {
+  /* ... feTurbulence SVG background at 0.03 opacity */
+}
+```
+
+Use on hero sections and feature backgrounds. Increase to 4% on dark backgrounds.
+
+### Warmth Gradient Pattern
+
+The signature page-flow pattern: sections transition from warm light (linen/off-white) through a gradient section ("evening falls") into dark (jet/near-black).
+
+**Transition gradient values:**
+```css
+background: linear-gradient(to bottom,
+  #fcf9f5 0%,    /* warm off-white */
+  #f7f1e9 15%,   /* linen */
+  #c7c5c4 35%,   /* mid-gray */
+  #676563 55%,   /* dark mid */
+  #373534 75%,   /* jet */
+  #2a2928 100%   /* deep jet */
+);
+```
+
+Use as a full-viewport transitional section between light and dark content areas.
+
+---
+
+## 14. Brand Voice & Copy
 
 ### Tone Attributes
 
@@ -616,7 +802,7 @@ The signature "heated glow" represents warmth from our heated furniture products
 
 ---
 
-## 13. Interaction States
+## 15. Interaction States
 
 ### State Hierarchy
 
@@ -644,7 +830,7 @@ The signature "heated glow" represents warmth from our heated furniture products
 
 ---
 
-## 14. Accessibility Standards
+## 16. Accessibility Standards
 
 ### Required Practices
 
@@ -664,7 +850,7 @@ The signature "heated glow" represents warmth from our heated furniture products
 
 ---
 
-## 15. Quick Reference: Tailwind Classes
+## 17. Quick Reference: Tailwind Classes
 
 ### Common Patterns
 
@@ -699,5 +885,5 @@ The signature "heated glow" represents warmth from our heated furniture products
 
 ---
 
-*Last updated: January 2026*
-*Version: 2.0.0*
+*Last updated: February 2026*
+*Version: 3.0.0*

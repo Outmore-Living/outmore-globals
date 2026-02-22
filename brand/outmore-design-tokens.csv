@@ -74,3 +74,44 @@ surface,ghost,Ghost,transparent hover:muted/50,none,none,surface-ghost,Hover rev
 surface,outline,Outline,transparent,1px solid border,none,surface-outline,Secondary actions
 surface,raised,Raised,surface-raised,1px solid border,none,surface-raised,Cards and containers
 surface,elevated,Elevated,surface-overlay,none,shadow-md,surface-elevated,Dropdowns and modals
+color,jet-50,Jet 50,#dfdedd,#dfdedd,,bg-jet-50 text-jet-50,Lightest jet tint
+color,jet-100,Jet 100,#c7c5c4,#c7c5c4,,bg-jet-100,Muted backgrounds dividers
+color,jet-200,Jet 200,#afadac,#afadac,,bg-jet-200,Disabled text placeholder
+color,jet-300,Jet 300,#979594,#979594,,bg-jet-300 text-jet-300,Secondary text
+color,jet-400,Jet 400,#7f7d7b,#7f7d7b,,bg-jet-400 text-jet-400,Muted foreground
+color,jet-500,Jet 500,#676563,#676563,,bg-jet-500 text-jet-500,Mid-tone text
+color,jet-600,Jet 600,#4f4d4b,#4f4d4b,,bg-jet-600,Strong secondary text
+color,jet-700,Jet 700,#373534,#373534,,bg-jet-700,Brand Jet (primary)
+color,jet-800,Jet 800,#252423,#252423,,bg-jet-800,Deep dark surface
+color,jet-900,Jet 900,#1a1918,#1a1918,,bg-jet-900,Deepest dark background
+color,jet-950,Jet 950,#121111,#121111,,bg-jet-950,Near-black
+color,embers-50,Embers 50,#fef0e5,#fef0e5,,bg-embers-50,Lightest warm highlight
+color,embers-100,Embers 100,#fce0cb,#fce0cb,,bg-embers-100,Warm background accent
+color,embers-200,Embers 200,#fac4ac,#fac4ac,,bg-embers-200,Light accent
+color,embers-300,Embers 300,#f8a88d,#f8a88d,,bg-embers-300,Soft warm glow
+color,embers-400,Embers 400,#f68c6e,#f68c6e,,bg-embers-400,Medium warm
+color,embers-500,Embers 500,#f4704f,#f4704f,,bg-embers-500,Active warm
+color,embers-600,Embers 600,#F25431,#F25431,,bg-embers-600,Brand Hot Embers (accent)
+color,embers-700,Embers 700,#c73e24,#c73e24,,bg-embers-700,Dark accent hover
+color,embers-800,Embers 800,#a12918,#a12918,,bg-embers-800,Deep accent
+color,embers-900,Embers 900,#7a1a0e,#7a1a0e,,bg-embers-900,Darkest accent
+color,linen-50,Linen 50,#fdfcfa,#fdfcfa,,bg-linen-50,Near-white warm
+color,linen-100,Linen 100,#fcfaf7,#fcfaf7,,bg-linen-100,Lightest warm background
+color,linen-200,Linen 200,#fbf8f4,#fbf8f4,,bg-linen-200,Light warm surface
+color,linen-300,Linen 300,#faf6f1,#faf6f1,,bg-linen-300,Warm card background
+color,linen-400,Linen 400,#f9f4ed,#f9f4ed,,bg-linen-400,Warm raised surface
+color,linen-500,Linen 500,#f7f1e9,#f7f1e9,,bg-linen-500,Brand Linen (beige theme)
+color,linen-600,Linen 600,#efe7dc,#efe7dc,,bg-linen-600,Warm muted
+color,linen-700,Linen 700,#e6ddd0,#e6ddd0,,bg-linen-700,Warm border
+color,linen-800,Linen 800,#ddd3c4,#ddd3c4,,bg-linen-800,Warm divider
+color,linen-900,Linen 900,#d4c9b8,#d4c9b8,,bg-linen-900,Deepest warm tone
+surface,glass,Glass (Light),bg-white/40 backdrop-blur-glass,,0 8px 40px rgba(55 53 52 / 0.06),surface-glass,Glassmorphism on light backgrounds
+surface,glass-dark,Glass (Dark),bg-white/4% backdrop-blur-glass,,0 8px 40px rgba(0 0 0 / 0.4),surface-glass-dark,Glassmorphism on dark backgrounds
+typography,text-7xl,7XL,4.5rem,72px,,text-7xl,Hero display
+typography,text-8xl,8XL,6rem,96px,,text-8xl,Editorial hero
+typography,text-9xl,9XL,7rem,112px,,text-9xl,Full-viewport editorial
+effect,grain-overlay,Grain Overlay,SVG feTurbulence 3%,,,grain-overlay,Tactile texture overlay
+effect,ambient-float,Ambient Float,keyframe 10s ease-in-out,,,animate-ambient-float,Floating orb movement
+effect,ring-pulse,Ring Pulse,keyframe 3s ease-in-out,,,animate-ring-pulse,Heat ring visualization
+effect,scroll-cue,Scroll Cue,keyframe 2s ease-in-out,,,animate-scroll-cue,Scroll indicator bounce
+gradient,warmth-gradient,Warmth Gradient,linear-gradient(to bottom #fcf9f5 #f7f1e9 #c7c5c4 #676563 #373534 #2a2928),,,N/A,Light-to-dark section flow
