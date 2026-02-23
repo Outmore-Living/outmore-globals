@@ -46,11 +46,11 @@ You are setting up a brand new Outmore Living project. Follow every step precise
 
 6. **Set up Google Fonts** in `src/app/layout.tsx`:
    ```tsx
-   import { Poppins, DM_Sans, Cormorant_Garamond } from 'next/font/google'
+   import { Poppins, DM_Sans, Noto_Serif } from 'next/font/google'
 
    const poppins = Poppins({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-display' })
    const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-body' })
-   const cormorant = Cormorant_Garamond({ subsets: ['latin'], weight: ['400', '500', '600'], style: ['normal', 'italic'], variable: '--font-accent' })
+   const notoSerif = Noto_Serif({ subsets: ['latin'], weight: ['400', '500', '600'], style: ['normal', 'italic'], variable: '--font-accent' })
    ```
    Apply all three font variables to `<body>`.
 

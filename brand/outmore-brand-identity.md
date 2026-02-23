@@ -208,7 +208,7 @@ linen-500 → linen-900 → jet-50 → jet-500 → jet-700 → jet-900
 |-------|--------|-------|
 | `font-display` | Poppins | Headlines, hero text, navigation |
 | `font-body` | DM Sans | Body copy, UI text, labels |
-| `font-accent` | Cormorant Garamond | Editorial accents, decorative text |
+| `font-accent` | Noto Serif | Editorial accents, decorative text |
 
 ### Font Configuration
 
@@ -216,7 +216,7 @@ linen-500 → linen-900 → jet-50 → jet-500 → jet-700 → jet-900
 :root {
   --font-display: 'Poppins', system-ui, sans-serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  --font-accent: 'Noto Serif', Georgia, serif;
 }
 ```
 
@@ -225,7 +225,7 @@ linen-500 → linen-900 → jet-50 → jet-500 → jet-700 → jet-900
 fontFamily: {
   display: ['Poppins', 'system-ui', 'sans-serif'],
   body: ['DM Sans', 'system-ui', 'sans-serif'],
-  accent: ['Cormorant Garamond', 'Georgia', 'serif'],
+  accent: ['Noto Serif', 'Georgia', 'serif'],
 }
 ```
 
@@ -265,7 +265,7 @@ h1, h2, h3, h4, h5, h6 {
 
 ### Editorial Headlines
 
-For large editorial/hero treatments, use Cormorant Garamond at `font-light italic`:
+For large editorial/hero treatments, use Noto Serif at `font-light italic`:
 
 ```js
 // Full-viewport editorial headline

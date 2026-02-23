@@ -17,7 +17,7 @@ The user describes the component they want: `$ARGUMENTS`
 
 ### Brand Compliance
 - Use Outmore color tokens via CSS variables / Tailwind classes
-- Typography: `font-display` (Poppins) for headings, `font-body` (DM Sans) for text, `font-accent` (Cormorant Garamond) for editorial
+- Typography: `font-display` (Poppins) for headings, `font-body` (DM Sans) for text, `font-accent` (Noto Serif) for editorial
 - Heading weight: 400 regular, hero headings 300 light
 - Buttons: `rounded-full` pill shape
 - Cards: `rounded-xl` to `rounded-2xl`

@@ -1,0 +1,104 @@
+OUTMORE LIVING — TOOLS & SERVICES
+===================================
+Last updated: 2026-02-06
+
+Everything Claude and the team use — CLIs, agent skills, MCP integrations, and services.
+
+
+--- DEVELOPMENT CLIs ---
+
+Node.js              v25.6.0       JavaScript runtime
+npm                  v11.8.0       Package manager
+npx                  v11.8.0       Package runner
+Vercel CLI           v50.12.3      Deploy & manage Vercel projects
+Shopify CLI          v3.90.0       Shopify app development
+Supabase CLI         v2.75.0       Database, auth, edge functions
+GitHub CLI (gh)      v2.86.0       Repos, PRs, issues, actions
+create-next-app      v16.1.6       Scaffold Next.js projects
+Tailwind CSS CLI     v4.1.18       Utility-first CSS
+shadcn CLI           v3.8.4        UI component library
+Vercel Skills CLI    v1.3.7        Install agent skills
+Go                   v1.25.7       Go programming language (for WhatsApp bridge)
+uv                   v0.10.0       Fast Python package manager
+pipx                 v1.8.0        Isolated Python CLI installs
+Python               v3.14.3       Python runtime (via brew)
+
+
+--- AGENT SKILLS (18 skills via npx skills) ---
+
+vercel-react-best-practices         React performance patterns (Vercel)
+web-design-guidelines               UI/UX review & accessibility
+vercel-composition-patterns          Component architecture patterns
+agent-browser                        Browser automation CLI
+skill-creator                        Create custom agent skills
+browser-use                          Web testing & form filling
+vercel-react-native-skills           React Native & Expo best practices
+react-19                             React 19 patterns & breaking changes
+frontend-design                      Production-grade frontend UI
+pdf                                  PDF manipulation toolkit
+pptx                                 Presentation creation/editing
+xlsx                                 Spreadsheet creation/analysis
+docx                                 Word document creation/editing
+web-artifacts-builder                Multi-component web artifacts
+webapp-testing                       Playwright web app testing
+next-best-practices                  Next.js conventions & patterns
+next-cache-components                Next.js 16 PPR & caching
+next-upgrade                         Next.js version migration
+
+
+--- MCP SERVERS (Model Context Protocol) ---
+
+  Already Active:
+  Supabase MCP                         Database, auth, edge functions          ACTIVE
+  Chrome/Browser MCP (Claude in Chrome) Browser automation & page interaction  ACTIVE
+  Mermaid Diagram MCP                  Diagram rendering & validation          ACTIVE
+
+  Configured (need API keys/auth to activate):
+  Linear MCP                           Project management & issue tracking     NEEDS API KEY
+  Google Workspace MCP                 Gmail, Docs, Sheets, Drive              NEEDS OAUTH
+  WhatsApp MCP                         Message reading & search                NEEDS QR SCAN
+  iMessage/SMS MCP                     macOS Messages integration              NEEDS FULL DISK ACCESS
+  WeChat MCP                           WeChat message integration              NEEDS WECHAT LOGIN
+
+  Manual Setup Required:
+  Canva MCP                            Design creation & templates             NEEDS CANVA DEV SETUP
+  Fusion 360 MCP                       3D CAD model interaction                NEEDS FUSION ADD-IN
+
+
+--- SERVICES & PLATFORMS ---
+
+Vercel                               Hosting & deployment
+Shopify                              E-commerce platform
+Supabase                             Backend-as-a-service (Postgres, Auth, Storage)
+GitHub                               Code hosting & collaboration
+Linear                               Project management
+Google Workspace                     Gmail, Docs, Sheets, Drive
+WhatsApp                             Team communication
+WeChat                               Team communication (China)
+iMessage                             Team communication (Apple)
+Canva                                Design & marketing assets
+Autodesk Fusion 360                  3D CAD & product design
+
+
+--- FRAMEWORKS & LIBRARIES (installed per-project) ---
+
+React / React DOM                    UI component library
+Next.js                              React framework (App Router)
+Tailwind CSS                         Utility-first CSS framework
+shadcn/ui                            Accessible component library
+GSAP                                 Animation library
+Framer Motion                        React animation library
+
+
+--- ACTIVATION CHECKLIST ---
+
+To fully activate all MCP servers, complete these steps:
+
+[ ] Linear:       Paste API key into ~/.claude.json (get from linear.app > Settings > API)
+[ ] Google:       Run Google Workspace MCP — it will open OAuth flow in browser
+[ ] WhatsApp:     Run whatsapp-bridge first: cd ~/.mcp-servers/whatsapp-mcp/whatsapp-bridge && ./whatsapp-bridge
+                  Then scan QR code with WhatsApp mobile app
+[ ] iMessage:     Grant Full Disk Access: System Settings > Privacy > Full Disk Access > add Terminal/Claude
+[ ] WeChat:       Install modified WeChat per wechat-exporter instructions, then login
+[ ] Canva:        Set up at canva.dev, get API credentials, configure MCP manually
+[ ] Fusion 360:   Install AuraFriday MCP add-in from Autodesk App Store

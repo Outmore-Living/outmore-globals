@@ -19,7 +19,7 @@ gradient,heated-glow,Heated Glow,linear-gradient(135deg #F25431 0% #FF8A5C 50% #
 gradient,heated-radial,Heated Radial,radial-gradient(circle #F25431 0% #FF8A5C 40% transparent 70%),,,heated-radial,Spotlight warmth effect
 font,font-display,Display,Poppins,,,font-display,Headlines and hero text
 font,font-body,Body,DM Sans,,,font-body,Body copy and UI text
-font,font-accent,Accent,Cormorant Garamond,,,font-accent,Editorial and decorative text
+font,font-accent,Accent,Noto Serif,,,font-accent,Editorial and decorative text
 typography,text-xs,Extra Small,0.75rem,12px,,text-xs,Captions and metadata
 typography,text-sm,Small,0.875rem,14px,,text-sm,Labels and secondary text
 typography,text-base,Base,1rem,16px,,text-base,Body copy

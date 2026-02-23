@@ -2,7 +2,7 @@
 
 Single source of truth for Outmore Living's development ecosystem.
 
-Brand system, AI agent definitions, skills, templates, and documentation — everything a developer needs to start building.
+Brand system, AI agent definitions, skills, templates, documentation, and institutional memory — everything needed to build and operate Outmore Living.
 
 ## Quick Start
 
@@ -21,15 +21,23 @@ The setup script:
 
 ## What's Inside
 
-| Directory | Contents |
-|-----------|----------|
+| File/Directory | Contents |
+|----------------|----------|
+| `CLAUDE.md` | Master config — Claude Code auto-reads this |
+| `beoutmore.md` | Mission, vision, values, beliefs — the soul of Outmore |
+| `organization.md` | Company structure, team, roles, operations |
+| `tools.md` | Every tool and platform in the ecosystem |
+| `principles.md` | Decision-making principles across product, engineering, design, business |
+| `Designethos.md` | Deep design philosophy — the *why* behind the brand system |
+| `lessons.md` | Hard-won lessons, documented for the future |
+| `cronjobs.md` | Recurring tasks, automations, maintenance schedules |
 | `brand/` | CSS variables, Tailwind config, logos, design tokens, brand identity |
 | `agents/` | 7 Claude Code agents (frontend, backend, marketing, tester, reviewer, deployer, copywriter) |
 | `skills/` | 3 custom skills (outmore-init, outmore-component, outmore-review) |
 | `docs/` | Tech stack reference, setup checklist, code conventions |
 | `templates/` | Starter files for new projects (.env, CLAUDE.md, Supabase clients, CSS) |
 | `config/` | Shared Claude Code settings |
-| `CLAUDE.md` | Master config — Claude Code auto-reads this |
+| `Memory/` | Institutional memory system (see below) |
 
 ## Starting a New Project
 
@@ -52,7 +60,7 @@ docs/project-setup-checklist.md
 | `brand-hot-embers` | Hot Embers | `#F25431` | Accent, CTAs, highlights |
 | `brand-mist` | Mist | `#efefed` | Flat surface backgrounds |
 
-**Fonts:** Poppins (display) / DM Sans (body) / Cormorant Garamond (accent)
+**Fonts:** Poppins (display) / DM Sans (body) / Noto Serif (accent)
 
 Full brand guide: `brand/outmore-brand-identity.md`
 
@@ -81,6 +89,20 @@ Full brand guide: `brand/outmore-brand-identity.md`
 | Marketing | Klaviyo, Intercom, Meta Pixel/CAPI, GA4, Neurograph |
 
 Full breakdown: `docs/outmore-tech-stack.md`
+
+## Memory System
+
+Persistent knowledge that carries across sessions and projects.
+
+```
+Memory/
+├── LTmemory.md      # Long-term: permanent facts, preferences, stack decisions
+├── daily/           # Daily work logs (30-day retention)
+├── projects/        # Per-project context and decisions
+├── references/      # Bookmarked resources and inspiration
+├── meetings/        # Meeting notes and action items
+└── archive/         # Retired memory files (historical reference)
+```
 
 ## Updating
 

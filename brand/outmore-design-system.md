@@ -137,7 +137,7 @@ Imagine sitting outside on a cool evening, warm seat beneath you, glass of wine 
 |-------|--------|---------|----------|-------|
 | `font-display` | **Poppins** | 300, 400, 500, 600 | `--font-poppins` | Headlines, nav, buttons, UI labels |
 | `font-body` | **DM Sans** | 400, 500 | `--font-dm-sans` | Body copy, descriptions, form labels |
-| `font-accent` | **Cormorant Garamond** | 300, 400 (normal + italic) | `--font-cormorant` | Hero headlines, editorial accents, decorative text |
+| `font-accent` | **Noto Serif** | 300, 400 (normal + italic) | `--font-noto-serif` | Hero headlines, editorial accents, decorative text |
 
 ### Type Hierarchy
 
@@ -154,7 +154,7 @@ Imagine sitting outside on a cool evening, warm seat beneath you, glass of wine 
 ### Typography Rules
 
 1. **Headings are always weight 400.** Never bold. Hero headlines can be weight 300.
-2. **Cormorant Garamond is for editorial moments only** — hero headlines, transition sections, emotional statements. Never for body copy or UI elements.
+2. **Noto Serif is for editorial moments only** — hero headlines, transition sections, emotional statements. Never for body copy or UI elements.
 3. **Cormorant uses italic for emphasis**, especially on hero taglines. E.g., `<span className="italic">Without Walls</span>`.
 4. **Section labels are always:** `font-body text-xs font-medium uppercase tracking-[0.3em]` with reduced opacity (30-40%).
 5. **Use `text-wrap: balance`** on all headings (set in base layer).
@@ -753,7 +753,7 @@ Outmore uses Tailwind CSS v4 with `@theme inline` syntax (no `tailwind.config.js
   /* Font stacks */
   --font-display: var(--font-poppins), system-ui, -apple-system, "Helvetica Neue", sans-serif;
   --font-body: var(--font-dm-sans), system-ui, -apple-system, "Helvetica Neue", sans-serif;
-  --font-accent: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-accent: var(--font-noto-serif), "Noto Serif", Georgia, serif;
 }
 ```
 
@@ -848,7 +848,7 @@ Use `power3.out` for all reveal animations. Use `sine.inOut` for ambient floatin
 ### Layout Configuration (`src/app/layout.tsx`)
 
 ```tsx
-import { Poppins, DM_Sans, Cormorant_Garamond } from "next/font/google";
+import { Poppins, DM_Sans, Noto_Serif } from "next/font/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -864,17 +864,17 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
+const notoSerif = Noto_Serif({
   subsets: ["latin"],
   weight: ["300", "400"],
   style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-noto-serif",
   display: "swap",
 });
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${dmSans.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${dmSans.variable} ${notoSerif.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   );
@@ -981,7 +981,7 @@ mx-auto max-w-6xl px-6
 ### Checklist for New Pages
 
 - [ ] Background color follows Warmth Gradient flow
-- [ ] Fonts loaded: Poppins, DM Sans, Cormorant Garamond
+- [ ] Fonts loaded: Poppins, DM Sans, Noto Serif
 - [ ] All headings use `font-display` or `font-accent`, weight 300-400
 - [ ] Section labels: `font-body text-xs font-medium uppercase tracking-[0.3em]`
 - [ ] Glass cards have ambient orb backgrounds

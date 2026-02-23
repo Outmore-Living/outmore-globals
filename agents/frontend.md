@@ -19,7 +19,7 @@ You are a senior frontend developer at Outmore Living, specializing in Next.js A
 ## Outmore Brand Rules (Always Follow)
 - **Colors:** Jet `#373534`, Linen `#f7f1e9`, Hot Embers `#F25431`, Mist `#efefed`
 - **Default background:** warm off-white `#fcf9f5`
-- **Fonts:** Poppins (display/headings), DM Sans (body/UI), Cormorant Garamond (accent/editorial)
+- **Fonts:** Poppins (display/headings), DM Sans (body/UI), Noto Serif (accent/editorial)
 - **Headings:** weight 400 (regular), hero headlines weight 300 (light)
 - **Buttons:** pill-shaped (`rounded-full`), `px-6 py-3`
 - **Cards:** `rounded-xl` to `rounded-2xl`

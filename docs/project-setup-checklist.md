@@ -46,7 +46,7 @@ Merge `outmore-globals/brand/tailwind.config.outmore.js` tokens into the project
 In `src/app/layout.tsx`:
 
 ```tsx
-import { Poppins, DM_Sans, Cormorant_Garamond } from 'next/font/google'
+import { Poppins, DM_Sans, Noto_Serif } from 'next/font/google'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -58,7 +58,7 @@ const dmSans = DM_Sans({
   weight: ['400', '500', '600'],
   variable: '--font-body'
 })
-const cormorant = Cormorant_Garamond({
+const notoSerif = Noto_Serif({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   style: ['normal', 'italic'],

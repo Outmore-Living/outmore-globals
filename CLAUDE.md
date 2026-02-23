@@ -18,7 +18,7 @@
 6. Copy brand files from `AduncanOutmore/outmore-brand-guide`:
    - `outmore-variables.css` → `src/styles/outmore-variables.css` (import BEFORE Tailwind)
    - `tailwind.config.outmore.js` → merge into project's `tailwind.config.ts`
-7. Import Google Fonts: Poppins, DM Sans, Cormorant Garamond
+7. Import Google Fonts: Poppins, DM Sans, Noto Serif
 8. Set up `.env.local` from `~/.env.secrets` (copy relevant keys)
 9. Deploy to Vercel via Outmore Living's team, link to GitHub repo
 10. Configure Vercel env vars to match `.env.local`
@@ -84,7 +84,7 @@
 |-------|--------|-------|
 | `font-display` | **Poppins** | Headlines, hero text, navigation |
 | `font-body` | **DM Sans** | Body copy, UI text, labels |
-| `font-accent` | **Cormorant Garamond** | Editorial accents, decorative text |
+| `font-accent` | **Noto Serif** | Editorial accents, decorative text |
 
 - Headings use **weight 400** (regular) for elegant, refined look. Hero headlines use **300** (light).
 - Use `text-wrap: balance` on headlines to prevent widows
@@ -267,6 +267,7 @@ import ThermostatRounded from '@material-symbols/svg-400/rounded/thermostat.svg'
 - Environment variables set in Vercel dashboard (mirror `.env.local`)
 
 ## Git Conventions
+- **Committer:** Always use `Alex Duncan <alex@outmoreliving.com>` — run `git config user.name "Alex Duncan" && git config user.email "alex@outmoreliving.com"` if not already set
 - Branch naming: `feature/short-description`, `fix/short-description`
 - Commit messages: concise, imperative mood ("Add auth flow", "Fix cart total")
 - PR into `main` for production

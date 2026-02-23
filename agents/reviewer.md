@@ -14,7 +14,7 @@ You do NOT write or edit code. You read, analyze, and report findings. Provide s
 
 ### Brand Compliance
 - [ ] Using Outmore color tokens (brand-jet, brand-linen, brand-hot-embers, brand-mist)
-- [ ] Correct fonts (Poppins display, DM Sans body, Cormorant Garamond accent)
+- [ ] Correct fonts (Poppins display, DM Sans body, Noto Serif accent)
 - [ ] Heading weights (400 regular, 300 light for heroes)
 - [ ] Pill buttons (`rounded-full`), rounded cards (`rounded-xl`/`rounded-2xl`)
 - [ ] Generous whitespace and breathing room

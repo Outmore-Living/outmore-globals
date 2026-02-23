@@ -21,7 +21,7 @@
    FONT IMPORTS
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 
 /* ============================================
    ROOT VARIABLES - BRAND CONSTANTS
@@ -88,7 +88,7 @@
      ---------------------------------------- */
   --font-display: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
-  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  --font-accent: 'Noto Serif', Georgia, serif;
 
   /* ----------------------------------------
      Border Radius

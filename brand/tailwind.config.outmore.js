@@ -20,7 +20,7 @@
  * Font Families:
  * - Display: Poppins (headlines, hero text, navigation)
  * - Body: DM Sans (body copy, UI text)
- * - Accent: Cormorant Garamond (editorial, decorative)
+ * - Accent: Noto Serif (editorial, decorative)
  */
 
 module.exports = {
@@ -134,10 +134,10 @@ module.exports = {
       fontFamily: {
         display: ['Poppins', 'system-ui', 'sans-serif'],
         body: ['DM Sans', 'system-ui', 'sans-serif'],
-        accent: ['Cormorant Garamond', 'Georgia', 'serif'],
+        accent: ['Noto Serif', 'Georgia', 'serif'],
         // Aliases for convenience
         sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+        serif: ['Noto Serif', 'Georgia', 'serif'],
       },
 
       fontSize: {
